@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a924edbf642495c7bca77e08f1c63407",
+    "content-hash": "e46e5c2098e2d446c0ae40458bd41ff9",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -2153,6 +2153,81 @@
                 "source": "https://github.com/justinrainbow/json-schema/tree/5.2.12"
             },
             "time": "2022-04-13T08:02:27+00:00"
+        },
+        {
+            "name": "marcocesarato/php-conventional-changelog",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcocesarato/php-conventional-changelog.git",
+                "reference": "461842bd829284ac4effd7ce87dca396cfb82f8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcocesarato/php-conventional-changelog/zipball/461842bd829284ac4effd7ce87dca396cfb82f8f",
+                "reference": "461842bd829284ac4effd7ce87dca396cfb82f8f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.1.3",
+                "symfony/console": "^4 || ^5 || ^6"
+            },
+            "require-dev": {
+                "brainmaestro/composer-git-hooks": "^2.8",
+                "friendsofphp/php-cs-fixer": "^3.8"
+            },
+            "default-branch": true,
+            "bin": [
+                "conventional-changelog"
+            ],
+            "type": "library",
+            "extra": {
+                "hooks": {
+                    "pre-commit": "composer fix-cs",
+                    "pre-push": "composer check-cs",
+                    "post-merge": "composer install"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ConventionalChangelog\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Cesarato",
+                    "email": "cesarato.developer@gmail.com"
+                }
+            ],
+            "description": "Generate changelogs and release notes from a project's commit messages and metadata and automate versioning with semver.org and conventionalcommits.org",
+            "keywords": [
+                "changelog",
+                "commit",
+                "commits",
+                "convention",
+                "conventional",
+                "conventional-changelog",
+                "conventional-changelog-preset",
+                "conventional-commit",
+                "conventional-commits",
+                "conventionalcommits",
+                "generation",
+                "git",
+                "history",
+                "php",
+                "readme",
+                "tag"
+            ],
+            "support": {
+                "issues": "https://github.com/marcocesarato/php-conventional-changelog/issues",
+                "source": "https://github.com/marcocesarato/php-conventional-changelog/tree/main"
+            },
+            "time": "2022-06-09T11:06:18+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -5440,7 +5515,8 @@
         "lcobucci/jwt": 20,
         "guzzlehttp/guzzle": 20,
         "laminas/laminas-hydrator": 20,
-        "ramsey/conventional-commits": 20
+        "ramsey/conventional-commits": 20,
+        "marcocesarato/php-conventional-changelog": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
