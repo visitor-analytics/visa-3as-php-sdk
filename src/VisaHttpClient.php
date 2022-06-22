@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Visa;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Visa\Hydrators\HydratorInterface;
+use Psr\Http\Message\ResponseInterface;
 use Visa\TokenSigning\AccessToken;
-use Visa\TokenSigning\AccessTokenFactory;
 
-class Client
+class VisaHttpClient
 {
     // http client
     private $http;
@@ -17,7 +16,6 @@ class Client
     private string $host;
     // sdk version
     private string $version = 'development';
-
     // authentication
     private AccessToken $accessToken;
 
@@ -27,32 +25,25 @@ class Client
     public function __construct(array $params)
     {
         $this->host = $params['host'];
+        $this->accessToken = $params['accessToken'];
 
         $this->http = new \GuzzleHttp\Client([
             'base_uri' => $params['host'],
             'timeout' => 3.0
         ]);
-
-        $this->accessToken = AccessTokenFactory::getAccessToken('RS256', $params['company'], $this->version);
     }
 
     /**
      * @throws GuzzleException
      * @throws \Exception
      */
-    public function get(string $path): array
+    public function get(string $path): Response
     {
-        $response = $this->http->get($this->host . $path, [
+        return new Response($this->http->get($this->host . $path, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
                 'Accept'        => 'application/json',
             ]
-        ]);
-
-        if ($response->getStatusCode() === 500) {
-            throw new \Exception('Request Failed.');
-        }
-
-        return json_decode($response->getBody()->getContents(), true)['payload'];
+        ]));
     }
 }

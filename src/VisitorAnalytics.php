@@ -4,41 +4,53 @@ declare(strict_types=1);
 
 namespace Visa;
 
-use GuzzleHttp\Exception\GuzzleException;
-use Visa\Models\Package;
+use Visa\Clients\ClientApi;
+use Visa\Clients\ClientsApi;
+use Visa\Packages\PackagesApi;
+use Visa\TokenSigning\AccessTokenFactory;
 
 class VisitorAnalytics
 {
-    private Client $client;
+    private VisaHttpClient $httpClient;
 
-    public Packages $visaPackages;
+    private PackagesApi $packagesApi;
+
+    private ClientsApi $clientsApi;
+
+    private ClientApi $clientApi;
 
     /**
      * @throws \Exception
      */
     public function __construct(array $params)
     {
-        $this->client = new Client([
+        $this->httpClient = new VisaHttpClient([
+            // http
             'host' => 'http://localhost:8080',
-            'company' => $params['company']
+            'accessToken' => AccessTokenFactory::getAccessToken(
+                'RS256',
+                $params['company'],
+                'dev'
+            ),
         ]);
 
-        $this->visaPackages = new Packages($this->client);
+        $this->packagesApi = new PackagesApi($this->httpClient);
+        $this->clientsApi = new ClientsApi($this->httpClient);
+        $this->clientApi = new ClientApi($this->httpClient);
     }
 
-    /**
-     * @throws GuzzleException
-     */
-    public function packages(array $criteria = []): array
+    public function packages(): PackagesApi
     {
-        return $this->visaPackages->getMany($criteria);
+        return $this->packagesApi;
     }
 
-    /**
-     * @throws GuzzleException
-     */
-    public function package(string $id): Package
+    public function clients(): ClientsApi
     {
-        return $this->visaPackages->get($id);
+        return $this->clientsApi;
+    }
+
+    public function client($id): ClientApi
+    {
+        return $this->clientApi->setClientId($id);
     }
 }
