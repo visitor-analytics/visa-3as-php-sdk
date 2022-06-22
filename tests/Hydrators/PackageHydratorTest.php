@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Hydrators;
 
 use PHPUnit\Framework\TestCase;
-use Visa\Hydrators\PackageHydrator;
-use Visa\Models\Package;
+use Visa\Packages\Package;
+use Visa\Packages\PackageHydrator;
 
 class PackageHydratorTest extends TestCase
 {

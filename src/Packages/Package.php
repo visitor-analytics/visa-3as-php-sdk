@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Visa\Models;
+namespace Visa\Packages;
 
 class Package
 {
     private string $id;
     private string $name;
     private int $touchpoints;
+    private string $createdAt;
 
     /**
      * @return string
@@ -19,19 +20,19 @@ class Package
     }
 
     /**
-     * @return int
-     */
-    public function getTouchpoints(): int
-    {
-        return $this->touchpoints;
-    }
-
-    /**
      * @param string $id
      */
     public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTouchpoints(): int
+    {
+        return $this->touchpoints;
     }
 
     /**
@@ -56,5 +57,21 @@ class Package
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @param string $createdAt
+     */
+    public function setCreatedAt(string $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->createdAt;
     }
 }
