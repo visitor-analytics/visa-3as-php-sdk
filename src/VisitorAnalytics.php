@@ -6,12 +6,15 @@ namespace Visa;
 
 use Visa\Clients\ClientApi;
 use Visa\Clients\ClientsApi;
+use Visa\Notifications\NotificationsApi;
 use Visa\Packages\PackagesApi;
 use Visa\TokenSigning\AccessTokenFactory;
 
 class VisitorAnalytics
 {
     private VisaHttpClient $httpClient;
+
+    private NotificationsApi $notificationsApi;
 
     private PackagesApi $packagesApi;
 
@@ -34,9 +37,15 @@ class VisitorAnalytics
             ),
         ]);
 
+        $this->notificationsApi = new NotificationsApi($this->httpClient);
         $this->packagesApi = new PackagesApi($this->httpClient);
         $this->clientsApi = new ClientsApi($this->httpClient);
         $this->clientApi = new ClientApi($this->httpClient);
+    }
+
+    public function notifications(): NotificationsApi
+    {
+        return $this->notificationsApi;
     }
 
     public function packages(): PackagesApi
