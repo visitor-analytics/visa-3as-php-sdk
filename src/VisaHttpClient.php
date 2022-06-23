@@ -46,4 +46,18 @@ class VisaHttpClient
             ]
         ]));
     }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function post(string $path, array $payload): Response
+    {
+        return new Response($this->http->post($path, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
+                'ContentType'        => 'application/json',
+            ],
+            'body' => json_encode($payload)
+        ]));
+    }
 }
