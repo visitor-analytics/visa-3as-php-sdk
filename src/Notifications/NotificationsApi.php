@@ -36,6 +36,8 @@ class NotificationsApi
             case self::SUB_UPDATED:
                 $this->validateSubscriptionUpdatedNotificationPayload($message['payload']);
                 break;
+            default:
+                throw new \Exception('Unsupported notification type.');
         }
 
         $this->httpClient->post('/v2/3as/notifications', $message);
