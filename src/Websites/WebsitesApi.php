@@ -17,16 +17,19 @@ class WebsitesApi
         $this->websiteHydrator = new WebsiteHydrator();
     }
 
-    public function list(): array
+    public function list(array $pagination = ['page' => 0, 'pageSize' => 10]): array
     {
-        $response = $this->httpClient->get('/v2/3as/websites');
+        $response = $this->httpClient->get('/v2/3as/websites?page=' . $pagination['page'] . '&pageSize=' . $pagination['pageSize']);
 
-        return $this->websiteHydrator->hydrateObjectArray($response->getPayload());
+        return [
+            'metadata' => $response->getMetadata(),
+            'items' => $this->websiteHydrator->hydrateObjectArray($response->getPayload())
+        ];
     }
 
-    public function getById($id): Website
+    public function getByExternalId($externalWebsiteId): Website
     {
-        $response = $this->httpClient->get('/v2/3as/websites/' . $id);
+        $response = $this->httpClient->get('/v2/3as/websites/' . $externalWebsiteId);
 
         return $this->websiteHydrator->hydrateObject($response->getPayload());
     }

@@ -12,6 +12,7 @@ class Response
     private ?string $body = null;
     private ?array $result = null;
     private ?array $payload = null;
+    private ?array $metadata = null;
 
     public function __construct(ResponseInterface $response)
     {
@@ -29,6 +30,10 @@ class Response
         }
 
         $this->payload = $this->result['payload'];
+
+        if (array_key_exists('meta', $this->result)) {
+            $this->metadata = $this->result['meta'];
+        }
     }
 
     /**
@@ -54,6 +59,14 @@ class Response
     public function getPayload(): ?array
     {
         return $this->payload;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getMetadata(): ?array
+    {
+        return $this->metadata;
     }
 
     /**

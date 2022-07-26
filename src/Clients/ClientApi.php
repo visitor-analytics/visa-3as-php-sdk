@@ -11,20 +11,23 @@ use Visa\Websites\WebsiteHydrator;
 
 class ClientApi
 {
-    private string $baseUrl;
+    private string $externalClientId;
+
     private VisaHttpClient $httpClient;
     private HydratorInterface $websiteHydrator;
+    private HydratorInterface $clientHydrator;
 
     public function __construct(VisaHttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
 
         $this->websiteHydrator = new WebsiteHydrator();
+        $this->clientHydrator = new ClientHydrator();
     }
 
-    public function setClientId(string $clientId): ClientApi
+    public function setClientExternalId(string $externalId): ClientApi
     {
-        $this->baseUrl = '/v2/3as/clients/' . $clientId;
+        $this->externalClientId = $externalId;
 
         return $this;
     }
@@ -33,14 +36,24 @@ class ClientApi
      * @throws GuzzleException
      * @throws \Exception
      */
-    public function listWebsites(): array
+    public function listWebsites($pagination = [ 'page' => 0, 'pageSize' => 10]): array
     {
-        if (!$this->baseUrl) {
+        if (!$this->externalClientId) {
             throw new \Exception('Client id not specified.');
         }
 
-        $response = $this->httpClient->get($this->baseUrl . '/websites');
+        $response = $this->httpClient->get('/v2/3as/websites?externalClientId=' . $this->externalClientId . '&page=' . $pagination['page'] . '&pageSize=' . $pagination['pageSize']);
 
-        return $this->websiteHydrator->hydrateObjectArray($response->getPayload());
+        return [
+            'metadata' => $response->getMetadata(),
+            'items' => $this->websiteHydrator->hydrateObjectArray($response->getPayload())
+        ];
+    }
+
+    public function delete(): Client
+    {
+        $response = $this->httpClient->delete('/v2/3as/clients/' . $this->externalClientId);
+
+        return $this->clientHydrator->hydrateObject($response->getPayload());
     }
 }

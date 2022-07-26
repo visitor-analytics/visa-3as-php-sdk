@@ -28,7 +28,7 @@ class ClientsApiTest extends TestCase
         $clientsApi = new ClientsApi($httpClient);
 
         $this->assertIsArray($clientsApi->list());
-        $this->assertInstanceOf(Client::class, $clientsApi->list()[0]);
+        $this->assertInstanceOf(Client::class, $clientsApi->list()['items'][0]);
     }
 
     public function testGetByIdAction()
@@ -46,6 +46,6 @@ class ClientsApiTest extends TestCase
 
         $clientsApi = new ClientsApi($httpClient);
 
-        $this->assertInstanceOf(Client::class, $clientsApi->getById('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
+        $this->assertInstanceOf(Client::class, $clientsApi->getByExternalId('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
     }
 }

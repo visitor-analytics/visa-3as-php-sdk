@@ -28,7 +28,7 @@ class WebsitesApiTest extends TestCase
         $websiteApi = new WebsitesApi($httpClient);
 
         $this->assertIsArray($websiteApi->list());
-        $this->assertInstanceOf(Website::class, $websiteApi->list()[0]);
+        $this->assertInstanceOf(Website::class, $websiteApi->list()['items'][0]);
     }
 
     public function testGetByIdAction()
@@ -48,7 +48,7 @@ class WebsitesApiTest extends TestCase
 
         $this->assertInstanceOf(
             Website::class,
-            $websiteApi->getById('9e595bdc-b79c-4c32-9d2f-80be6a67785c')
+            $websiteApi->getByExternalId('9e595bdc-b79c-4c32-9d2f-80be6a67785c')
         );
     }
 }
