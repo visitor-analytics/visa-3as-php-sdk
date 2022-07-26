@@ -11,8 +11,8 @@ use Visa\VisaHttpClient;
 
 class NotificationsApi
 {
-    const SUB_CREATED = 'SUBSCRIPTION_CREATED';
-    const SUB_UPDATED = 'SUBSCRIPTION_UPDATED';
+    public const SUB_CREATED = 'SUBSCRIPTION_CREATED';
+    public const SUB_UPDATED = 'SUBSCRIPTION_UPDATED';
 
     private VisaHttpClient $httpClient;
 
@@ -76,7 +76,7 @@ class NotificationsApi
                 ->key(
                     'website',
                     Validator::arrayType()
-                    ->key('id', Validator::stringType())
+                    ->key('externalId', Validator::stringType())
                     ->key('domain', Validator::domain())
                     ->key(
                         'language',
@@ -95,7 +95,7 @@ class NotificationsApi
                 )->key(
                     'client',
                     Validator::arrayType()
-                    ->key('id', Validator::stringType())
+                    ->key('externalId', Validator::stringType())
                     ->key('email', Validator::email())
                 );
 

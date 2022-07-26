@@ -55,9 +55,55 @@ class VisaHttpClient
         return new Response($this->http->post($path, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
-                'ContentType'        => 'application/json',
+                'Content-Type'        => 'application/json',
             ],
             'body' => json_encode($payload)
+        ]));
+    }
+
+    /**
+     * @param string $path
+     * @param array $payload
+     * @return Response
+     * @throws GuzzleException
+     */
+    public function put(string $path, array $payload): Response
+    {
+        return new Response($this->http->put($path, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
+                'Content-Type'        => 'application/json',
+            ],
+            'body' => json_encode($payload)
+        ]));
+    }
+
+    /**
+     * @param string $path
+     * @param array $payload
+     * @return Response
+     * @throws GuzzleException
+     */
+    public function patch(string $path, array $payload): Response
+    {
+        return new Response($this->http->patch($path, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
+                'Content-Type'        => 'application/json',
+            ],
+            'body' => json_encode($payload)
+        ]));
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function delete(string $path): Response
+    {
+        return new Response($this->http->delete($path, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->accessToken->getValue()
+            ]
         ]));
     }
 }
