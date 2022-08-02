@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Visa\Clients;
+namespace Visa\Customers;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Visa\HydratorInterface;
 use Visa\VisaHttpClient;
 use Visa\Websites\WebsiteHydrator;
 
-class ClientApi
+class CustomerApi
 {
-    private string $externalClientId;
+    private string $externalCustomerId;
 
     private VisaHttpClient $httpClient;
     private HydratorInterface $websiteHydrator;
-    private HydratorInterface $clientHydrator;
+    private HydratorInterface $customerHydrator;
 
     public function __construct(VisaHttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
 
         $this->websiteHydrator = new WebsiteHydrator();
-        $this->clientHydrator = new ClientHydrator();
+        $this->customerHydrator = new CustomerHydrator();
     }
 
-    public function setClientExternalId(string $externalId): ClientApi
+    public function setCustomerExternalId(string $externalId): CustomerApi
     {
-        $this->externalClientId = $externalId;
+        $this->externalCustomerId = $externalId;
 
         return $this;
     }
@@ -38,11 +38,11 @@ class ClientApi
      */
     public function listWebsites($pagination = [ 'page' => 0, 'pageSize' => 10]): array
     {
-        if (!$this->externalClientId) {
-            throw new \Exception('Client id not specified.');
+        if (!$this->externalCustomerId) {
+            throw new \Exception('Customer id not specified.');
         }
 
-        $response = $this->httpClient->get('/v2/3as/websites?externalClientId=' . $this->externalClientId . '&page=' . $pagination['page'] . '&pageSize=' . $pagination['pageSize']);
+        $response = $this->httpClient->get('/v2/3as/websites?externalCustomerId=' . $this->externalCustomerId . '&page=' . $pagination['page'] . '&pageSize=' . $pagination['pageSize']);
 
         return [
             'metadata' => $response->getMetadata(),
@@ -50,10 +50,10 @@ class ClientApi
         ];
     }
 
-    public function delete(): Client
+    public function delete(): Customer
     {
-        $response = $this->httpClient->delete('/v2/3as/clients/' . $this->externalClientId);
+        $response = $this->httpClient->delete('/v2/3as/customers/' . $this->externalCustomerId);
 
-        return $this->clientHydrator->hydrateObject($response->getPayload());
+        return $this->customerHydrator->hydrateObject($response->getPayload());
     }
 }

@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Visa;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Psr\Http\Message\ResponseInterface;
 use Visa\TokenSigning\AccessToken;
 
 class VisaHttpClient
 {
+    public const DEV_API_GATEWAY_URI = 'http://94.130.27.191:9090';
+    public const PROD_API_GATEWAY_URI = '';
+
     // http client
     private $http;
     // visa gateway
-    private string $host;
+    private string $apiGatewayBaseUri;
     // sdk version
     private string $version = 'development';
     // authentication
@@ -24,11 +26,12 @@ class VisaHttpClient
      */
     public function __construct(array $params)
     {
-        $this->host = $params['host'];
         $this->accessToken = $params['accessToken'];
 
+        $this->apiGatewayBaseUri = $params['env'] === 'dev' ? self::DEV_API_GATEWAY_URI : self::PROD_API_GATEWAY_URI;
+
         $this->http = new \GuzzleHttp\Client([
-            'base_uri' => $params['host'],
+            'base_uri' => $this->apiGatewayBaseUri,
             'timeout' => 3.0
         ]);
     }
@@ -39,7 +42,9 @@ class VisaHttpClient
      */
     public function get(string $path): Response
     {
-        return new Response($this->http->get($this->host . $path, [
+        print_r($this->accessToken->getValue());
+
+        return new Response($this->http->get($this->apiGatewayBaseUri . $path, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
                 'Accept'        => 'application/json',

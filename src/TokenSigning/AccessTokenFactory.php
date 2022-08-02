@@ -8,8 +8,8 @@ use Carbon\Carbon;
 
 class AccessTokenFactory
 {
-    const ROLE_INTP = 'intp';
-    const ROLE_INTPC = 'intpc';
+    public const ROLE_INTP = 'intp';
+    public const ROLE_INTPC = 'intpc';
     /**
      * @throws \Exception
      */

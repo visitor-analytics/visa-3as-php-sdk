@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Visa\Clients;
+namespace Visa\Customers;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
 use Visa\VisaHttpClient;
 
-class ClientsApi
+class CustomersApi
 {
     private VisaHttpClient $httpClient;
-    private ClientHydrator $hydrator;
+    private CustomerHydrator $hydrator;
 
     public function __construct(VisaHttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->hydrator = new ClientHydrator();
+        $this->hydrator = new CustomerHydrator();
     }
 
-    public function create(array $client): Client
+    public function create(array $customer): Customer
     {
         $newClientValidationSchema = Validator::arrayType()
             ->key('externalId', Validator::stringType())
             ->key('email', Validator::email());
 
         try {
-            $newClientValidationSchema->assert($client);
+            $newClientValidationSchema->assert($customer);
 
-            $response = $this->httpClient->post('/v2/3as/clients', $client);
+            $response = $this->httpClient->post('/v2/3as/customers', $customer);
 
             return $this->hydrator->hydrateObject($response->getPayload());
         } catch (NestedValidationException $exception) {
@@ -38,7 +38,7 @@ class ClientsApi
 
     public function list($pagination = ['page' => 0, 'pageSize' => 10]): array
     {
-        $response = $this->httpClient->get("/v2/3as/clients?page=" . $pagination['page'] . '&pageSize=' . $pagination['pageSize']);
+        $response = $this->httpClient->get("/v2/3as/customers?page=" . $pagination['page'] . '&pageSize=' . $pagination['pageSize']);
 
         return  [
             'metadata' => $response->getMetadata(),
@@ -46,9 +46,9 @@ class ClientsApi
         ];
     }
 
-    public function getByExternalId($externalId): Client
+    public function getByExternalId($externalId): Customer
     {
-        $response = $this->httpClient->get('/v2/3as/clients/' . $externalId);
+        $response = $this->httpClient->get('/v2/3as/customers/' . $externalId);
 
         return $this->hydrator->hydrateObject($response->getPayload());
     }

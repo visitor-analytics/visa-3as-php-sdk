@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Visa\Clients;
+namespace Visa\Customers;
 
 use Laminas\Hydrator\ClassMethodsHydrator;
 use Visa\HydratorInterface;
 
-class ClientHydrator implements HydratorInterface
+class CustomerHydrator implements HydratorInterface
 {
     private ClassMethodsHydrator $hydrator;
 
@@ -16,15 +16,15 @@ class ClientHydrator implements HydratorInterface
         $this->hydrator = new ClassMethodsHydrator();
     }
 
-    public function hydrateObject(array $data): Client
+    public function hydrateObject(array $data): Customer
     {
-        return $this->hydrator->hydrate($data, new Client());
+        return $this->hydrator->hydrate($data, new Customer());
     }
 
     public function hydrateObjectArray(array $dataArray): array
     {
         return array_map(function (array $data) {
-            return $this->hydrator->hydrate($data, new Client());
+            return $this->hydrator->hydrate($data, new Customer());
         }, $dataArray);
     }
 }

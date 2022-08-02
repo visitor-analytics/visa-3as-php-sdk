@@ -6,8 +6,8 @@ namespace Visa;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
-use Visa\Clients\ClientApi;
-use Visa\Clients\ClientsApi;
+use Visa\Customers\CustomerApi;
+use Visa\Customers\CustomersApi;
 use Visa\Notifications\NotificationsApi;
 use Visa\Packages\PackageApi;
 use Visa\Packages\PackagesApi;
@@ -17,9 +17,9 @@ use Visa\Websites\WebsitesApi;
 
 class VisitorAnalytics
 {
-    const API_GATEWAY_URL = 'http://94.130.27.191:9090';
-    const DASHBOARD_URL = '';
+    public const DASHBOARD_URL = '';
 
+    private string $env;
     private array $intp = [];
 
     private VisaHttpClient $httpClient;
@@ -30,9 +30,9 @@ class VisitorAnalytics
 
     private PackageApi $packageApi;
 
-    private ClientsApi $clientsApi;
+    private CustomersApi $customersApi;
 
-    private ClientApi $clientApi;
+    private CustomerApi $customerApi;
 
     private WebsitesApi $websitesApi;
 
@@ -43,13 +43,13 @@ class VisitorAnalytics
      */
     public function __construct(array $params)
     {
-        $this->validateIntp($params['intp']);
+        $this->validateSetup($params);
 
         $this->intp = $params['intp'];
+        $this->env = $params['env'];
 
         $this->httpClient = new VisaHttpClient([
             // http
-            'host' => self::API_GATEWAY_URL,
             'accessToken' => AccessTokenFactory::getAccessToken(
                 [
                     'alg' => 'RS256',
@@ -58,30 +58,33 @@ class VisitorAnalytics
                         'sub' => $this->intp['domain'],
                         'role' => AccessTokenFactory::ROLE_INTP,
                     ],
-                    'env' => 'dev',
+                    'env' => $this->env,
                     'privateKey' => $this->intp['privateKey']
                 ]
             ),
+            'env' => $this->env
         ]);
 
         $this->notificationsApi = new NotificationsApi($this->httpClient);
         $this->packagesApi = new PackagesApi($this->httpClient);
         $this->packageApi = new PackageApi($this->httpClient);
-        $this->clientsApi = new ClientsApi($this->httpClient);
-        $this->clientApi = new ClientApi($this->httpClient);
+        $this->customersApi = new CustomersApi($this->httpClient);
+        $this->customerApi = new CustomerApi($this->httpClient);
         $this->websitesApi = new WebsitesApi($this->httpClient);
         $this->websiteApi = new WebsiteApi($this->httpClient);
     }
 
-    private function validateIntp(array $intp): void
+    private function validateSetup(array $params): void
     {
-        $intpValidationSchema = Validator::arrayType()
-            ->key('id', Validator::stringType()->uuid(4))
-            ->key('domain', Validator::stringType()->domain())
-            ->key('privateKey', Validator::stringType());
+        $skdSetupValidationSchema = Validator::arrayType()
+            ->key('intp', Validator::arrayType()
+                ->key('id', Validator::stringType()->uuid(4))
+                ->key('domain', Validator::stringType()->domain())
+                ->key('privateKey', Validator::stringType()))
+            ->key('env', Validator::oneOf(Validator::equals('dev'), Validator::equals('prod')));
 
         try {
-            $intpValidationSchema->assert($intp);
+            $skdSetupValidationSchema->assert($params);
         } catch (NestedValidationException $exception) {
             throw new \Exception(json_encode($exception->getMessages()));
         }
@@ -102,14 +105,14 @@ class VisitorAnalytics
         return $this->packageApi->setPackageId($id);
     }
 
-    public function clients(): ClientsApi
+    public function customers(): CustomersApi
     {
-        return $this->clientsApi;
+        return $this->customersApi;
     }
 
-    public function client($externalId): ClientApi
+    public function customer($externalId): CustomerApi
     {
-        return $this->clientApi->setClientExternalId($externalId);
+        return $this->customerApi->setCustomerExternalId($externalId);
     }
 
     public function websites(): WebsitesApi
