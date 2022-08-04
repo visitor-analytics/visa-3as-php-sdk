@@ -19,7 +19,7 @@ class VisaHttpClient
     // sdk version
     private string $version = 'development';
     // authentication
-    private AccessToken $accessToken;
+    private string $accessToken;
 
     /**
      * @throws \Exception
@@ -42,11 +42,9 @@ class VisaHttpClient
      */
     public function get(string $path): Response
     {
-        print_r($this->accessToken->getValue());
-
         return new Response($this->http->get($this->apiGatewayBaseUri . $path, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
+                'Authorization' => 'Bearer ' . $this->accessToken,
                 'Accept'        => 'application/json',
             ]
         ]));
@@ -59,7 +57,7 @@ class VisaHttpClient
     {
         return new Response($this->http->post($path, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
+                'Authorization' => 'Bearer ' . $this->accessToken,
                 'Content-Type'        => 'application/json',
             ],
             'body' => json_encode($payload)
@@ -76,7 +74,7 @@ class VisaHttpClient
     {
         return new Response($this->http->put($path, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
+                'Authorization' => 'Bearer ' . $this->accessToken,
                 'Content-Type'        => 'application/json',
             ],
             'body' => json_encode($payload)
@@ -93,7 +91,7 @@ class VisaHttpClient
     {
         return new Response($this->http->patch($path, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken->getValue(),
+                'Authorization' => 'Bearer ' . $this->accessToken,
                 'Content-Type'        => 'application/json',
             ],
             'body' => json_encode($payload)
@@ -107,7 +105,7 @@ class VisaHttpClient
     {
         return new Response($this->http->delete($path, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken->getValue()
+                'Authorization' => 'Bearer ' . $this->accessToken
             ]
         ]));
     }

@@ -11,7 +11,7 @@ use Visa\Customers\CustomersApi;
 use Visa\Notifications\NotificationsApi;
 use Visa\Packages\PackageApi;
 use Visa\Packages\PackagesApi;
-use Visa\TokenSigning\AccessTokenFactory;
+use Visa\Utils\UtilsApi;
 use Visa\Websites\WebsiteApi;
 use Visa\Websites\WebsitesApi;
 
@@ -19,24 +19,16 @@ class VisitorAnalytics
 {
     public const DASHBOARD_URL = '';
 
-    private string $env;
-    private array $intp = [];
-
-    private VisaHttpClient $httpClient;
-
-    private NotificationsApi $notificationsApi;
-
-    private PackagesApi $packagesApi;
+    public UtilsApi $utils;
+    public PackagesApi $packages;
+    public WebsitesApi $websites;
+    public CustomersApi $customers;
+    public NotificationsApi $notifications;
 
     private PackageApi $packageApi;
-
-    private CustomersApi $customersApi;
-
-    private CustomerApi $customerApi;
-
-    private WebsitesApi $websitesApi;
-
     private WebsiteApi $websiteApi;
+    private CustomerApi $customerApi;
+    private VisaHttpClient $httpClient;
 
     /**
      * @throws \Exception
@@ -45,33 +37,21 @@ class VisitorAnalytics
     {
         $this->validateSetup($params);
 
-        $this->intp = $params['intp'];
-        $this->env = $params['env'];
+        $this->utils = new UtilsApi($params['intp'], $params['env']);
 
         $this->httpClient = new VisaHttpClient([
             // http
-            'accessToken' => AccessTokenFactory::getAccessToken(
-                [
-                    'alg' => 'RS256',
-                    'kid' => $this->intp['id'],
-                    'jwtClaims' => [
-                        'sub' => $this->intp['domain'],
-                        'role' => AccessTokenFactory::ROLE_INTP,
-                    ],
-                    'env' => $this->env,
-                    'privateKey' => $this->intp['privateKey']
-                ]
-            ),
-            'env' => $this->env
+            'env' => $params['env'],
+            'accessToken' => $this->utils->auth->generateINTPAccessToken(),
         ]);
 
-        $this->notificationsApi = new NotificationsApi($this->httpClient);
-        $this->packagesApi = new PackagesApi($this->httpClient);
         $this->packageApi = new PackageApi($this->httpClient);
-        $this->customersApi = new CustomersApi($this->httpClient);
+        $this->packages = new PackagesApi($this->httpClient);
         $this->customerApi = new CustomerApi($this->httpClient);
-        $this->websitesApi = new WebsitesApi($this->httpClient);
+        $this->customers = new CustomersApi($this->httpClient);
         $this->websiteApi = new WebsiteApi($this->httpClient);
+        $this->websites = new WebsitesApi($this->httpClient);
+        $this->notifications = new NotificationsApi($this->httpClient);
     }
 
     private function validateSetup(array $params): void
@@ -90,24 +70,9 @@ class VisitorAnalytics
         }
     }
 
-    public function notifications(): NotificationsApi
-    {
-        return $this->notificationsApi;
-    }
-
-    public function packages(): PackagesApi
-    {
-        return $this->packagesApi;
-    }
-
     public function package($id): PackageApi
     {
         return $this->packageApi->setPackageId($id);
-    }
-
-    public function customers(): CustomersApi
-    {
-        return $this->customersApi;
     }
 
     public function customer($externalId): CustomerApi
@@ -115,29 +80,8 @@ class VisitorAnalytics
         return $this->customerApi->setCustomerExternalId($externalId);
     }
 
-    public function websites(): WebsitesApi
-    {
-        return $this->websitesApi;
-    }
-
     public function website($externalId): WebsiteApi
     {
         return $this->websiteApi->setExternalId($externalId);
-    }
-
-    public function dashboardIFrameUrl(): string
-    {
-        $intpcAccessToken = AccessTokenFactory::getAccessToken([
-            'alg' => 'RS256',
-            'kid' => $this->intp['id'],
-            'jwtClaims' => [
-                'sub' => $this->intp['domain'],
-                'role' => AccessTokenFactory::ROLE_INTPC,
-            ],
-            'env' => 'dev',
-            'privateKey' => $this->intp['privateKey']
-        ])->getValue();
-
-        return self::DASHBOARD_URL . '?intpc_token=' . $intpcAccessToken;
     }
 }

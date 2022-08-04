@@ -12,6 +12,7 @@ class Website
     private string $partnerId;
     private string $packageId;
     private string $customerId;
+    private string $trackingCode;
     private string $createdAt;
 
     /**
@@ -28,6 +29,22 @@ class Website
     public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTrackingCode(): string
+    {
+        return $this->trackingCode;
+    }
+
+    /**
+     * @param string $trackingCode
+     */
+    public function setTrackingCode(string $trackingCode): void
+    {
+        $this->trackingCode = $trackingCode;
     }
 
     /**

@@ -40,7 +40,7 @@ class WebsitesApi
     {
         $newWebsiteValidationSchema = Validator::arrayType()
             ->key('externalId', Validator::stringType())
-            ->key('externalClientId', Validator::stringType())
+            ->key('externalCustomerId', Validator::stringType())
             ->key('domain', Validator::stringType())
             ->key('packageId', Validator::stringType()->uuid('4'));
 
