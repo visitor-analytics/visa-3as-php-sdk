@@ -6,95 +6,68 @@ namespace Visa;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
-use Visa\Clients\ClientApi;
-use Visa\Clients\ClientsApi;
+use Visa\Customers\CustomerApi;
+use Visa\Customers\CustomersApi;
 use Visa\Notifications\NotificationsApi;
 use Visa\Packages\PackageApi;
 use Visa\Packages\PackagesApi;
-use Visa\TokenSigning\AccessTokenFactory;
+use Visa\Utils\UtilsApi;
 use Visa\Websites\WebsiteApi;
 use Visa\Websites\WebsitesApi;
 
 class VisitorAnalytics
 {
-    const API_GATEWAY_URL = 'http://94.130.27.191:9090';
-    const DASHBOARD_URL = '';
+    public const DASHBOARD_URL = '';
 
-    private array $intp = [];
-
-    private VisaHttpClient $httpClient;
-
-    private NotificationsApi $notificationsApi;
-
-    private PackagesApi $packagesApi;
+    public UtilsApi $utils;
+    public PackagesApi $packages;
+    public WebsitesApi $websites;
+    public CustomersApi $customers;
+    public NotificationsApi $notifications;
 
     private PackageApi $packageApi;
-
-    private ClientsApi $clientsApi;
-
-    private ClientApi $clientApi;
-
-    private WebsitesApi $websitesApi;
-
     private WebsiteApi $websiteApi;
+    private CustomerApi $customerApi;
+    private VisaHttpClient $httpClient;
 
     /**
      * @throws \Exception
      */
     public function __construct(array $params)
     {
-        $this->validateIntp($params['intp']);
+        $this->validateSetup($params);
 
-        $this->intp = $params['intp'];
+        $this->utils = new UtilsApi($params['intp'], $params['env']);
 
         $this->httpClient = new VisaHttpClient([
             // http
-            'host' => self::API_GATEWAY_URL,
-            'accessToken' => AccessTokenFactory::getAccessToken(
-                [
-                    'alg' => 'RS256',
-                    'kid' => $this->intp['id'],
-                    'jwtClaims' => [
-                        'sub' => $this->intp['domain'],
-                        'role' => AccessTokenFactory::ROLE_INTP,
-                    ],
-                    'env' => 'dev',
-                    'privateKey' => $this->intp['privateKey']
-                ]
-            ),
+            'env' => $params['env'],
+            'accessToken' => $this->utils->auth->generateINTPAccessToken(),
         ]);
 
-        $this->notificationsApi = new NotificationsApi($this->httpClient);
-        $this->packagesApi = new PackagesApi($this->httpClient);
         $this->packageApi = new PackageApi($this->httpClient);
-        $this->clientsApi = new ClientsApi($this->httpClient);
-        $this->clientApi = new ClientApi($this->httpClient);
-        $this->websitesApi = new WebsitesApi($this->httpClient);
+        $this->packages = new PackagesApi($this->httpClient);
+        $this->customerApi = new CustomerApi($this->httpClient);
+        $this->customers = new CustomersApi($this->httpClient);
         $this->websiteApi = new WebsiteApi($this->httpClient);
+        $this->websites = new WebsitesApi($this->httpClient);
+        $this->notifications = new NotificationsApi($this->httpClient);
     }
 
-    private function validateIntp(array $intp): void
+    private function validateSetup(array $params): void
     {
-        $intpValidationSchema = Validator::arrayType()
-            ->key('id', Validator::stringType()->uuid(4))
-            ->key('domain', Validator::stringType()->domain())
-            ->key('privateKey', Validator::stringType());
+        $skdSetupValidationSchema = Validator::arrayType()
+            ->key('intp', Validator::arrayType()
+                ->key('id', Validator::stringType()->uuid(4))
+                ->key('domain', Validator::stringType()->domain())
+                ->key('privateKey', Validator::stringType()))
+            ->key('env', Validator::oneOf(Validator::equals('dev'), Validator::equals('prod')));
 
         try {
-            $intpValidationSchema->assert($intp);
+            $skdSetupValidationSchema->assert($params);
         } catch (NestedValidationException $exception) {
             throw new \Exception(json_encode($exception->getMessages()));
         }
-    }
-
-    public function notifications(): NotificationsApi
-    {
-        return $this->notificationsApi;
-    }
-
-    public function packages(): PackagesApi
-    {
-        return $this->packagesApi;
     }
 
     public function package($id): PackageApi
@@ -102,39 +75,13 @@ class VisitorAnalytics
         return $this->packageApi->setPackageId($id);
     }
 
-    public function clients(): ClientsApi
+    public function customer($externalId): CustomerApi
     {
-        return $this->clientsApi;
-    }
-
-    public function client($externalId): ClientApi
-    {
-        return $this->clientApi->setClientExternalId($externalId);
-    }
-
-    public function websites(): WebsitesApi
-    {
-        return $this->websitesApi;
+        return $this->customerApi->setCustomerExternalId($externalId);
     }
 
     public function website($externalId): WebsiteApi
     {
         return $this->websiteApi->setExternalId($externalId);
-    }
-
-    public function dashboardIFrameUrl(): string
-    {
-        $intpcAccessToken = AccessTokenFactory::getAccessToken([
-            'alg' => 'RS256',
-            'kid' => $this->intp['id'],
-            'jwtClaims' => [
-                'sub' => $this->intp['domain'],
-                'role' => AccessTokenFactory::ROLE_INTPC,
-            ],
-            'env' => 'dev',
-            'privateKey' => $this->intp['privateKey']
-        ])->getValue();
-
-        return self::DASHBOARD_URL . '?intpc_token=' . $intpcAccessToken;
     }
 }

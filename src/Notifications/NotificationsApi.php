@@ -93,7 +93,7 @@ class NotificationsApi
                         )
                     )
                 )->key(
-                    'client',
+                    'customer',
                     Validator::arrayType()
                     ->key('externalId', Validator::stringType())
                     ->key('email', Validator::email())

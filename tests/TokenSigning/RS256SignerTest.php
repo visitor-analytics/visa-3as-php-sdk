@@ -35,7 +35,7 @@ final class RS256SignerTest extends TestCase
         $accessToken = $this->signer->sign([
             'iat' => $now,
             'exp' => $now->modify('+10 minutes'),
-            'roles' => ['sdk']
+            'roles' => ['intp']
         ], ['kid' => 'be784859-d477-404c-8021-c5558498a1fa']);
 
         $this->assertMatchesRegularExpression("/^([a-zA-Z\d_=]+)\.([a-zA-Z\d_=]+)\.([a-zA-Z\d_\-\/=]*)$/", $accessToken);
@@ -48,13 +48,13 @@ final class RS256SignerTest extends TestCase
         $firstAccessToken = $this->signer->sign([
             'iat' => $now,
             'exp' => $now->modify('+10 minutes'),
-            'roles' => ['sdk']
+            'roles' => ['intp']
         ], ['kid' => 'be784859-d477-404c-8021-c5558498a1fa']);
 
         $secondAccessToken = $this->signer->sign([
             'iat' => $now,
             'exp' => $now->modify('+10 minutes'),
-            'roles' => ['sdk']
+            'roles' => ['intp']
         ], ['kid' => 'be784859-d477-404c-8021-c5558498a1fa']);
 
         $this->assertNotEquals($firstAccessToken, $secondAccessToken);

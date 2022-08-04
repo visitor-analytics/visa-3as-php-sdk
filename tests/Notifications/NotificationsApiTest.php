@@ -49,7 +49,7 @@ class NotificationsApiTest extends TestCase
 
         $notificationsApi = new NotificationsApi($httpClient);
 
-        $this->expectExceptionMessage("{\"packageId\":\"packageId must be present\",\"website\":\"website must be present\",\"client\":\"client must be present\"}");
+        $this->expectExceptionMessage("{\"packageId\":\"packageId must be present\",\"website\":\"website must be present\",\"customer\":\"customer must be present\"}");
 
         $notificationsApi->notify(['type' => 'SUBSCRIPTION_CREATED', 'payload' => []]);
     }
@@ -71,7 +71,7 @@ class NotificationsApiTest extends TestCase
                     'language' => 'en',
                     'timezone' => 'GMT+2',
                 ],
-                'client' => [
+                'customer' => [
                     'externalId' => 'EXTERNAL_ID',
                     'email' => 'client@3as-company.io'
                 ]

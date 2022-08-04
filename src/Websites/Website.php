@@ -9,9 +9,10 @@ class Website
     private string $id;
     private string $externalId;
     private string $domain;
-    private string $companyId;
+    private string $partnerId;
     private string $packageId;
-    private string $clientId;
+    private string $customerId;
+    private string $trackingCode;
     private string $createdAt;
 
     /**
@@ -28,6 +29,22 @@ class Website
     public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTrackingCode(): string
+    {
+        return $this->trackingCode;
+    }
+
+    /**
+     * @param string $trackingCode
+     */
+    public function setTrackingCode(string $trackingCode): void
+    {
+        $this->trackingCode = $trackingCode;
     }
 
     /**
@@ -65,33 +82,33 @@ class Website
     /**
      * @return string
      */
-    public function getCompanyId(): string
+    public function getPartnerId(): string
     {
-        return $this->companyId;
+        return $this->partnerId;
     }
 
     /**
-     * @param string $companyId
+     * @param string $partnerId
      */
-    public function setCompanyId(string $companyId): void
+    public function setPartnerId(string $partnerId): void
     {
-        $this->companyId = $companyId;
+        $this->partnerId = $partnerId;
     }
 
     /**
      * @return string
      */
-    public function getClientId(): string
+    public function getCustomerId(): string
     {
-        return $this->clientId;
+        return $this->customerId;
     }
 
     /**
-     * @param string $clientId
+     * @param string $customerId
      */
-    public function setClientId(string $clientId): void
+    public function setCustomerId(string $customerId): void
     {
-        $this->clientId = $clientId;
+        $this->customerId = $customerId;
     }
 
     /**
