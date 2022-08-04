@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Clients;
+namespace Customers;
 
 use PHPUnit\Framework\TestCase;
-use Visa\Clients\ClientApi;
+use Visa\Customers\CustomerApi;
 use Visa\Response;
 use Visa\VisaHttpClient;
 
-class ClientApiTest extends TestCase
+class CustomerApiTest extends TestCase
 {
     public function testListWebsitesAction()
     {
@@ -27,10 +27,10 @@ class ClientApiTest extends TestCase
         $httpClient->method('get')
             ->willReturn($response);
 
-        $clientApi = new ClientApi($httpClient);
+        $customerApi = new CustomerApi($httpClient);
 
         $this->assertIsArray(
-            $clientApi->setClientExternalId('f653a5c5-842e-4f8f-a25d-e86c1122a341')
+            $customerApi->setCustomerExternalId('f653a5c5-842e-4f8f-a25d-e86c1122a341')
             ->listWebsites()
         );
     }

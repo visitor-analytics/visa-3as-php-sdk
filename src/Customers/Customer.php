@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Visa\Clients;
+namespace Visa\Customers;
 
-class Client
+class Customer
 {
     private string $id;
     private string $externalId;

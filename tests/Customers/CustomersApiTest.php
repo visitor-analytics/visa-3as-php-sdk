@@ -1,14 +1,14 @@
 <?php
 
-namespace Clients;
+namespace Customers;
 
 use PHPUnit\Framework\TestCase;
-use Visa\Clients\Client;
-use Visa\Clients\ClientsApi;
+use Visa\Customers\Customer;
+use Visa\Customers\CustomersApi;
 use Visa\Response;
 use Visa\VisaHttpClient;
 
-class ClientsApiTest extends TestCase
+class CustomersApiTest extends TestCase
 {
     public function testListAction()
     {
@@ -25,10 +25,10 @@ class ClientsApiTest extends TestCase
         $httpClient->method('get')
             ->willReturn($response);
 
-        $clientsApi = new ClientsApi($httpClient);
+        $customersApi = new CustomersApi($httpClient);
 
-        $this->assertIsArray($clientsApi->list());
-        $this->assertInstanceOf(Client::class, $clientsApi->list()['items'][0]);
+        $this->assertIsArray($customersApi->list());
+        $this->assertInstanceOf(Customer::class, $customersApi->list()['items'][0]);
     }
 
     public function testGetByIdAction()
@@ -44,8 +44,8 @@ class ClientsApiTest extends TestCase
         $httpClient->method('get')
             ->willReturn($response);
 
-        $clientsApi = new ClientsApi($httpClient);
+        $customersApi = new CustomersApi($httpClient);
 
-        $this->assertInstanceOf(Client::class, $clientsApi->getByExternalId('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
+        $this->assertInstanceOf(Customer::class, $customersApi->getByExternalId('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
     }
 }
