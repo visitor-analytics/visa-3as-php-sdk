@@ -5,29 +5,30 @@ declare(strict_types=1);
 namespace Visa\TokenSigning;
 
 use Carbon\Carbon;
-use Visa\Company;
 
 class AccessTokenFactory
 {
+    public const ROLE_INTP = 'intp';
+    public const ROLE_INTPC = 'intpc';
     /**
      * @throws \Exception
      */
-    public static function getAccessToken(string $alg, array $company, string $sdkVersion): AccessToken
+    public static function getAccessToken(array $config): AccessToken
     {
-        if ($alg !== 'RS256') {
+        if (!array_key_exists('alg', $config) || $config['alg'] !== 'RS256') {
             throw new \Exception('Unsupported Algorithm. Supported RS256.');
         }
 
         $now = Carbon::now();
 
         return new AccessToken([
-            'kid' => $company['id'],
+            'kid' => $config['kid'],
         ], [
-            'sub' => $company['domain'],
-            'roles' => ['sdk'],
+            'sub' => $config['jwtClaims']['sub'],
+            'roles' => [$config['jwtClaims']['role']],
             'exp' => $now->addMinutes(10)->unix(),
             'iat' => $now->unix(),
-            'ver' => $sdkVersion
-        ], new RS256Signer($company['privateKey']));
+            'ver' => $config['env']
+        ], new RS256Signer($config['privateKey']));
     }
 }

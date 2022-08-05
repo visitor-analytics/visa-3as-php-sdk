@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Visa;
 
-class Company
+class Partner
 {
     public string $id;
     public string $domain;

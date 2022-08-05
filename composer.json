@@ -1,29 +1,38 @@
 {
-  "name": "visa/3as-sdk",
-  "description": "PHP SDK for 3AS Companies",
-  "type": "library",
-  "autoload": {
-    "psr-4": {
-      "Visa\\": "src/"
+    "name": "visa/3as-sdk",
+    "description": "PHP SDK for 3AS Companies",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Visa\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oliviu Sivu",
+            "email": "os@visitor-analytics.io"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "nesbot/carbon": "2.x-dev",
+        "lcobucci/jwt": "4.0.x-dev",
+        "guzzlehttp/guzzle": "7.4.x-dev",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "laminas/laminas-hydrator": "4.4.x-dev",
+        "respect/validation": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "ramsey/conventional-commits": "1.x-dev",
+        "marcocesarato/php-conventional-changelog": "dev-main"
+    },
+    "scripts": {
+        "changelog": "conventional-changelog",
+        "release": "conventional-changelog --commit",
+        "release:patch": "conventional-changelog --patch --commit",
+        "release:minor": "conventional-changelog --minor --commit",
+        "release:major": "conventional-changelog --major --commit"
     }
-  },
-  "authors": [
-    {
-      "name": "Oliviu Sivu",
-      "email": "os@visitor-analytics.io"
-    }
-  ],
-  "minimum-stability": "dev",
-  "require": {
-    "nesbot/carbon": "2.x-dev",
-    "lcobucci/jwt": "4.0.x-dev",
-    "guzzlehttp/guzzle": "7.4.x-dev",
-    "ext-json": "*",
-    "ext-openssl": "*",
-    "laminas/laminas-hydrator": "4.4.x-dev"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.5",
-    "ramsey/conventional-commits": "1.x-dev"
-  }
 }
