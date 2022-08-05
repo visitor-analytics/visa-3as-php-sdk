@@ -11,15 +11,15 @@ use Visa\Customers\CustomersApi;
 use Visa\Notifications\NotificationsApi;
 use Visa\Packages\PackageApi;
 use Visa\Packages\PackagesApi;
-use Visa\Utils\UtilsApi;
+use Visa\Utils\AuthUtils;
+use Visa\Utils\IFrameUtils;
 use Visa\Websites\WebsiteApi;
 use Visa\Websites\WebsitesApi;
 
 class VisitorAnalytics
 {
-    public const DASHBOARD_URL = '';
-
-    public UtilsApi $utils;
+    public AuthUtils $auth;
+    public IFrameUtils $iframe;
     public PackagesApi $packages;
     public WebsitesApi $websites;
     public CustomersApi $customers;
@@ -37,12 +37,14 @@ class VisitorAnalytics
     {
         $this->validateSetup($params);
 
-        $this->utils = new UtilsApi($params['intp'], $params['env']);
+        $this->auth = new AuthUtils($params['intp']);
+
+        $this->iframe = new IFrameUtils($this->auth, $params['env']);
 
         $this->httpClient = new VisaHttpClient([
             // http
             'env' => $params['env'],
-            'accessToken' => $this->utils->auth->generateINTPAccessToken(),
+            'accessToken' => $this->auth->generateINTPAccessToken(),
         ]);
 
         $this->packageApi = new PackageApi($this->httpClient);

@@ -26,9 +26,10 @@ class AccessTokenFactory
         ], [
             'sub' => $config['jwtClaims']['sub'],
             'roles' => [$config['jwtClaims']['role']],
+            'intp' => $config['jwtClaims']['intp'],
+            'intpc' => $config['jwtClaims']['intpc'] ?? null,
             'exp' => $now->addMinutes(10)->unix(),
             'iat' => $now->unix(),
-            'ver' => $config['env']
         ], new RS256Signer($config['privateKey']));
     }
 }
