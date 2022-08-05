@@ -8,8 +8,9 @@ class Customer
 {
     private string $id;
     private string $externalId;
+    private string $visaId;
     private string $email;
-    private string $companyId;
+    private string $partnerId;
     private string $createdAt;
 
     /**
@@ -26,6 +27,22 @@ class Customer
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVisaId(): string
+    {
+        return $this->visaId;
+    }
+
+    /**
+     * @param string $visaId
+     */
+    public function setVisaId(string $visaId): void
+    {
+        $this->visaId = $visaId;
     }
 
     /**
@@ -63,17 +80,17 @@ class Customer
     /**
      * @return string
      */
-    public function getCompanyId(): string
+    public function getPartnerId(): string
     {
-        return $this->companyId;
+        return $this->partnerId;
     }
 
     /**
-     * @param string $companyId
+     * @param string $partnerId
      */
-    public function setCompanyId(string $companyId): void
+    public function setPartnerId(string $partnerId): void
     {
-        $this->companyId = $companyId;
+        $this->partnerId = $partnerId;
     }
 
     /**
