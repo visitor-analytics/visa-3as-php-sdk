@@ -12,7 +12,7 @@ class Website
     private string $partnerId;
     private string $packageId;
     private string $customerId;
-    private string $trackingCode;
+    private string $visaTrackingCode;
     private string $createdAt;
 
     /**
@@ -34,17 +34,17 @@ class Website
     /**
      * @return string
      */
-    public function getTrackingCode(): string
+    public function getVisaTrackingCode(): string
     {
-        return $this->trackingCode;
+        return $this->visaTrackingCode;
     }
 
     /**
-     * @param string $trackingCode
+     * @param string $visaTrackingCode
      */
-    public function setTrackingCode(string $trackingCode): void
+    public function setVisaTrackingCode(string $visaTrackingCode): void
     {
-        $this->trackingCode = $trackingCode;
+        $this->visaTrackingCode = $visaTrackingCode;
     }
 
     /**
