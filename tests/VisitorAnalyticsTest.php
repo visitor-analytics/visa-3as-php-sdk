@@ -50,7 +50,6 @@ sWasdeA8o5UQdcNEdly3IKk2fZY5YJ4YVRgTYpahZiWuodpJ8mTBm2yQaqxkIW2k
         // UTILS API
 //        print_r($visa->auth->generateINTPAccessToken());die;
 //        print_r($visa->utils->auth->generateINTPcAccessToken());die;
-//        print_r($visa->iframe->generateDashboardUri('aci'));
 
 
         // PACKAGES API
@@ -66,7 +65,7 @@ sWasdeA8o5UQdcNEdly3IKk2fZY5YJ4YVRgTYpahZiWuodpJ8mTBm2yQaqxkIW2k
 //            'name' => 'APAV'
 //        ]));die;
 
-        // CLIENTS API
+        // CUSTOMERS API
 //        print_r($visa->customers->list());die;
 //        print_r($visa->customers->getByExternalId('intpc-0001'));die;
 
@@ -83,9 +82,10 @@ sWasdeA8o5UQdcNEdly3IKk2fZY5YJ4YVRgTYpahZiWuodpJ8mTBm2yQaqxkIW2k
 //        print_r($visa->customers->getByExternalId('intpc-0001'));die;
 
 
-        // CLIENT API
+        // CUSTOMER API
 //        print_r($visa->customer('intpc-0001')->listWebsites());die;
 //        print_r($visa->customer('abc')->delete());
+//        print_r($visa->customer('abc')->generateIFrameDashboardUrl());
 
         // WEBSITES API
 //        print_r($visa->websites->create([

@@ -19,7 +19,6 @@ use Visa\Websites\WebsitesApi;
 class VisitorAnalytics
 {
     public AuthUtils $auth;
-    public IFrameUtils $iframe;
     public PackagesApi $packages;
     public WebsitesApi $websites;
     public CustomersApi $customers;
@@ -39,8 +38,6 @@ class VisitorAnalytics
 
         $this->auth = new AuthUtils($params['intp']);
 
-        $this->iframe = new IFrameUtils($this->auth, $params['env']);
-
         $this->httpClient = new VisaHttpClient([
             // http
             'env' => $params['env'],
@@ -49,7 +46,7 @@ class VisitorAnalytics
 
         $this->packageApi = new PackageApi($this->httpClient);
         $this->packages = new PackagesApi($this->httpClient);
-        $this->customerApi = new CustomerApi($this->httpClient);
+        $this->customerApi = new CustomerApi($this->httpClient, new IFrameUtils($this->auth, $params['env']));
         $this->customers = new CustomersApi($this->httpClient);
         $this->websiteApi = new WebsiteApi($this->httpClient);
         $this->websites = new WebsitesApi($this->httpClient);
@@ -77,13 +74,13 @@ class VisitorAnalytics
         return $this->packageApi->setPackageId($id);
     }
 
-    public function customer($externalId): CustomerApi
+    public function customer($intpCustomerId): CustomerApi
     {
-        return $this->customerApi->setCustomerExternalId($externalId);
+        return $this->customerApi->setIntpCustomerId($intpCustomerId);
     }
 
     public function website($externalId): WebsiteApi
     {
-        return $this->websiteApi->setExternalId($externalId);
+        return $this->websiteApi->setIntpWebsiteId($externalId);
     }
 }

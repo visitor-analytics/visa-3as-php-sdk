@@ -6,13 +6,13 @@ A simple API wrapper for integrating the AAAS APIs provided by VisitorAnalytics
 
 ### Composer
 ```
-composer require visa/3as-api-sdk
+composer require visa/3as-sdk
 ```
 
 ### Git
 
 ```
-git clone https://github.com/visa/3as-api-sdk.git
+git clone https://github.com/visitor-analytics/visa-3as-php-sdk.git
 ```
 
 ## Getting Started
@@ -49,7 +49,8 @@ The `page` count starts from 0.
 * website
 * websites
 * notifications
-* utils
+* auth
+* iframe
 
 ## Customers API
 
@@ -94,6 +95,12 @@ $visa->customer({INTP_CUSTOMER_ID})->listWebsites();
 
 ```php
 $visa->customer({INTP_CUSTOMER_ID})->delete();
+```
+
+### Generate the VisitorAnalytics Dashboard IFrame Url
+
+```php
+$visa->customer({INTP_CUSTOMER_ID})->generateIFrameDashboardUrl();
 ```
 <br>
 
@@ -173,17 +180,11 @@ $visa->website({INTP_WEBSITE_ID})->delete());
 ### Generate a valid access token for the current INTP configuration.
 
 ```php
-$visa->utils->auth->generateINTPAccessToken();
+$visa->auth->auth->generateINTPAccessToken();
 ```
 
 ### Generate a valid access token for the current INTPc configuration.
 
 ```php
-$visa->utils->auth->generateINTPcAccessToken();
-```
-
-### Generate a valid uri for setting up the VisitorAnalytics Dashboard IFrame
-
-```php
-$visa->utils->iframe->generateDashboardUri();
+$visa->auth->generateINTPcAccessToken({INTP_CUSTOMER_ID});
 ```

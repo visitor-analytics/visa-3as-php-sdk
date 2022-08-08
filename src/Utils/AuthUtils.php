@@ -35,7 +35,7 @@ class AuthUtils
     /**
      * @throws \Exception
      */
-    public function generateINTPcAccessToken(string $intpcVisaId): string
+    public function generateINTPcAccessToken(string $intpcId): string
     {
         return AccessTokenFactory::getAccessToken(
             [
@@ -44,7 +44,7 @@ class AuthUtils
                 'jwtClaims' => [
                     'sub' => $this->intp['domain'],
                     'intp' => $this->intp['id'],
-                    'intpc' => $intpcVisaId,
+                    'intpc' => $intpcId,
                     'role' => AccessTokenFactory::ROLE_INTPC,
                 ],
                 'privateKey' => $this->intp['privateKey']

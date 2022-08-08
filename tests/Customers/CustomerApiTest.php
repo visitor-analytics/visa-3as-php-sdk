@@ -30,7 +30,7 @@ class CustomerApiTest extends TestCase
         $customerApi = new CustomerApi($httpClient);
 
         $this->assertIsArray(
-            $customerApi->setCustomerExternalId('f653a5c5-842e-4f8f-a25d-e86c1122a341')
+            $customerApi->setIntpCustomerId('f653a5c5-842e-4f8f-a25d-e86c1122a341')
             ->listWebsites()
         );
     }

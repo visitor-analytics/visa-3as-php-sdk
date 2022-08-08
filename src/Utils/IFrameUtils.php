@@ -22,12 +22,10 @@ class IFrameUtils
     /**
      * @throws \Exception
      */
-    public function generateDashboardUri(string $customerVisaId): string
+    public function generateDashboardUrl(string $intpcId): string
     {
         $dashboardUri = $this->env === 'dev' ? self::DEV_DASHBOARD_BASE_URI : self::PROD_DASHBOARD_BASE_URI;
 
-        return $dashboardUri . '?intpc_token=' . $this->auth->generateINTPcAccessToken($customerVisaId);
+        return $dashboardUri . '?intpc_token=' . $this->auth->generateINTPcAccessToken($intpcId);
     }
 }
-
-
