@@ -142,7 +142,9 @@ $visa->packages->getById({PACKAGE_UUID});
 ```php
 $visa->packages->create([
     'name' => {PACKAGE_NAME},
-    'touchpoints' => {TOUCHPOINT_LIMIT}
+    'touchpoints' => {TOUCHPOINT_LIMIT},
+    'price' => {FLOAT},
+    'currency' => {CURRENCY_CODE} // ex: EUR, USD, RON
 ]);
 ```
 
