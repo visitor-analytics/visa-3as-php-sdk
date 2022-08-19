@@ -7,6 +7,5 @@ namespace Visa;
 class Partner
 {
     public string $id;
-    public string $domain;
     public string $privateKey;
 }

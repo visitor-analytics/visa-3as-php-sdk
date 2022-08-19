@@ -66,13 +66,13 @@ class NotificationsApiTest extends TestCase
             'payload' => [
                 'packageId' => 'dd34de31-867d-492b-a87d-9057fc5c4180',
                 'website' => [
-                    'externalId' => 'EXTERNAL_ID',
+                    'intpWebsiteId' => 'INTP_WEBSITE_ID',
                     'domain' => 'example.io',
                     'language' => 'en',
                     'timezone' => 'GMT+2',
                 ],
                 'customer' => [
-                    'externalId' => 'EXTERNAL_ID',
+                    'intpCustomerId' => 'INTP_CUSTOMER_ID',
                     'email' => 'client@3as-company.io'
                 ]
             ]

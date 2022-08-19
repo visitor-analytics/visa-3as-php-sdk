@@ -8,6 +8,8 @@ class Package
 {
     private string $id;
     private string $name;
+    private float $price;
+    private string $currency;
     private int $touchpoints;
     private string $createdAt;
 
@@ -25,6 +27,38 @@ class Package
     public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency(string $currency): void
+    {
+        $this->currency = $currency;
     }
 
     /**

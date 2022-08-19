@@ -5,6 +5,21 @@ A simple API wrapper for integrating the AAAS APIs provided by VisitorAnalytics
 ## Installation
 
 ### Composer
+
+#### composer.json
+
+```json
+{
+  "repositories": [
+    {
+      "type": "github",
+      "url": "https://github.com/visitor-analytics/visa-3as-php-sdk"
+    }
+  ]
+}
+```
+#### Install via Composer
+
 ```
 composer require visa/3as-sdk
 ```
@@ -21,20 +36,22 @@ git clone https://github.com/visitor-analytics/visa-3as-php-sdk.git
 $visa = new VisitorAnalytics([
      'intp' => [
          'id' => {INTP_ID},
-         'domain' => {INTP_DOMAIN},
          'privateKey' => {INTP_RS256_PRIVATE_KEY}
      ],
      'env' => 'dev'
 ]);
 ```
+
 <br>
 
 ## Pagination
 
 `list` methods support pagination options as follows:
+
 ```php
 $visa->customers->list(['page' => 0, 'pageSize' => 5])
 ```
+
 If no pagination options are provided, the `pageSize` defaults to 10 items.
 
 The `page` count starts from 0.
@@ -42,15 +59,13 @@ The `page` count starts from 0.
 
 ## Available APIs
 
-* customer
-* customers
-* package
-* packages
-* website
-* websites
-* notifications
-* auth
-* iframe
+- customer
+- customers
+- package
+- packages
+- website
+- websites
+- auth
 
 ## Customers API
 
@@ -62,36 +77,37 @@ Integration partners (INTP) are able to get data about their customers (INTPc).
 $visa->customers->list();
 ```
 
-### Get a single customer by its externalId
+### Get a single customer by its INTP given id
 
 ```php
-$visa->customers->getByExternalId({INTP_CUSTOMER_ID});
+$visa->customers->getByIntpCustomerId({INTP_CUSTOMER_ID});
 ```
 
 ### Register a new customer
 
 ```php
 $visa->customers->create([
-        'externalId' => {INTP_CUSTOMER_ID},
+        'intpCustomerId' => {INTP_CUSTOMER_ID},
         'email' => {INTP_CUSTOMER_EMAIL},
         'website' => [
-            'externalId' => {INTP_WEBSITE_ID},
+            'intpWebsiteId' => {INTP_WEBSITE_ID},
             'domain' => {INTP_WEBSITE_DOMAIN_URI},
             'packageId' => {PACKAGE_UUID}
         ]
 ]);
 ```
+
 <br>
 
 ## Customer API
 
-### List all websites belonging to a INTP Customer
+### List all websites belonging to an INTP Customer
 
 ```php
 $visa->customer({INTP_CUSTOMER_ID})->listWebsites();
 ```
 
-### Delete a website belonging to a INTP Customer
+### Delete a Customer belonging to an INTP
 
 ```php
 $visa->customer({INTP_CUSTOMER_ID})->delete();
@@ -102,6 +118,7 @@ $visa->customer({INTP_CUSTOMER_ID})->delete();
 ```php
 $visa->customer({INTP_CUSTOMER_ID})->generateIFrameDashboardUrl();
 ```
+
 <br>
 
 ## Packages API
@@ -119,28 +136,31 @@ $visa->packages->list();
 ```php
 $visa->packages->getById({PACKAGE_UUID});
 ```
+
 ### Create a package
+
 ```php
 $visa->packages->create([
     'name' => {PACKAGE_NAME},
     'touchpoints' => {TOUCHPOINT_LIMIT}
 ]);
 ```
+
 <br>
 
 ## Package API
 
 ### An INTP can update its packages
+
 ```php
 $visa->package({PACKAGE_UUID})->update([
     'name' => {UPDATED_PACKAGE_NAME}
 ]);
 ```
+
 <br>
 
 ## Websites API
-
-An Integration Partner (INTP) is able to get data about their websites.
 
 ### List all websites
 
@@ -148,31 +168,33 @@ An Integration Partner (INTP) is able to get data about their websites.
 $visa->websites->list();
 ```
 
-### Get a single website by its external ID
+### Get a single website by its INTP given id
 
 ```php
-$visa->websites->getByExternalId({INTP_WEBSITE_ID});
+$visa->websites->getByIntpWebsiteId({INTP_WEBSITE_ID});
 ```
 
 ### Create a website
 
-```php 
+```php
 $visa->websites->create([
-    'externalId' => {INTP_WEBSITE_ID},
-    'externalCustomerId' => {INTP_CUSTOMER_ID},
+    'intpWebsiteId' => {INTP_WEBSITE_ID},
+    'intpCustomerId' => {INTP_CUSTOMER_ID},
     'domain' => {INTP_WEBSITE_DOMAIN},
     'packageId' => {PACKAGE_UUID}
 ]);
 ```
+
 <br>
 
 ## Website API
 
-### Delete a website of a INTP customer by its external ID
+### Delete a website by its INTP given id
 
 ```php
 $visa->website({INTP_WEBSITE_ID})->delete());
 ```
+
 <br>
 
 ## Utils API
@@ -180,7 +202,7 @@ $visa->website({INTP_WEBSITE_ID})->delete());
 ### Generate a valid access token for the current INTP configuration.
 
 ```php
-$visa->auth->auth->generateINTPAccessToken();
+$visa->auth->generateINTPAccessToken();
 ```
 
 ### Generate a valid access token for the current INTPc configuration.

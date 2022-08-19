@@ -31,6 +31,8 @@ class PackagesApi
         try {
             $newPackageValidationSchema = Validator::arrayType()
                 ->key('name', Validator::stringType())
+                ->key('price', Validator::floatType())
+                ->key('currency', Validator::currencyCode())
                 ->key('touchpoints', Validator::number());
 
             $newPackageValidationSchema->assert($package);

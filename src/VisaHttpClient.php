@@ -16,8 +16,6 @@ class VisaHttpClient
     private $http;
     // visa gateway
     private string $apiGatewayBaseUri;
-    // sdk version
-    private string $version = 'development';
     // authentication
     private string $accessToken;
 

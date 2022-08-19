@@ -55,15 +55,14 @@ class VisitorAnalytics
 
     private function validateSetup(array $params): void
     {
-        $skdSetupValidationSchema = Validator::arrayType()
+        $sdkSetupValidationSchema = Validator::arrayType()
             ->key('intp', Validator::arrayType()
                 ->key('id', Validator::stringType()->uuid(4))
-                ->key('domain', Validator::stringType()->domain())
                 ->key('privateKey', Validator::stringType()))
             ->key('env', Validator::oneOf(Validator::equals('dev'), Validator::equals('prod')));
 
         try {
-            $skdSetupValidationSchema->assert($params);
+            $sdkSetupValidationSchema->assert($params);
         } catch (NestedValidationException $exception) {
             throw new \Exception(json_encode($exception->getMessages()));
         }

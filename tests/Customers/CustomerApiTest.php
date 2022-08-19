@@ -7,12 +7,20 @@ namespace Customers;
 use PHPUnit\Framework\TestCase;
 use Visa\Customers\CustomerApi;
 use Visa\Response;
+use Visa\Utils\AuthUtils;
+use Visa\Utils\IFrameUtils;
 use Visa\VisaHttpClient;
 
 class CustomerApiTest extends TestCase
 {
     public function testListWebsitesAction()
     {
+        $intp = [
+            'id' => 'abc',
+            'privateKey' => 'xyz',
+            'env' => 'development'
+        ];
+
         $response = $this->createMock(Response::class);
         $response->method('getPayload')
             ->willReturn([
@@ -27,7 +35,7 @@ class CustomerApiTest extends TestCase
         $httpClient->method('get')
             ->willReturn($response);
 
-        $customerApi = new CustomerApi($httpClient);
+        $customerApi = new CustomerApi($httpClient, new IFrameUtils(new AuthUtils($intp), 'dev'));
 
         $this->assertIsArray(
             $customerApi->setIntpCustomerId('f653a5c5-842e-4f8f-a25d-e86c1122a341')

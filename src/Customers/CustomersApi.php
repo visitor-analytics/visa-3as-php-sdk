@@ -22,7 +22,7 @@ class CustomersApi
     public function create(array $customer): Customer
     {
         $newClientValidationSchema = Validator::arrayType()
-            ->key('externalId', Validator::stringType())
+            ->key('intpCustomerId', Validator::stringType())
             ->key('email', Validator::email());
 
         try {
@@ -46,9 +46,9 @@ class CustomersApi
         ];
     }
 
-    public function getByExternalId($externalId): Customer
+    public function getByIntpCustomerId($intpCustomerId): Customer
     {
-        $response = $this->httpClient->get('/v2/3as/customers/' . $externalId);
+        $response = $this->httpClient->get('/v2/3as/customers/' . $intpCustomerId);
 
         return $this->hydrator->hydrateObject($response->getPayload());
     }

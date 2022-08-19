@@ -23,7 +23,6 @@ class AuthUtils
                 'alg' => 'RS256',
                 'kid' => $this->intp['id'],
                 'jwtClaims' => [
-                    'sub' => $this->intp['domain'],
                     'intp' => $this->intp['id'],
                     'role' => AccessTokenFactory::ROLE_INTP,
                 ],
@@ -42,7 +41,6 @@ class AuthUtils
                 'alg' => 'RS256',
                 'kid' => $this->intp['id'],
                 'jwtClaims' => [
-                    'sub' => $this->intp['domain'],
                     'intp' => $this->intp['id'],
                     'intpc' => $intpcId,
                     'role' => AccessTokenFactory::ROLE_INTPC,

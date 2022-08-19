@@ -76,7 +76,7 @@ class NotificationsApi
                 ->key(
                     'website',
                     Validator::arrayType()
-                    ->key('externalId', Validator::stringType())
+                    ->key('intpWebsiteId', Validator::stringType())
                     ->key('domain', Validator::domain())
                     ->key(
                         'language',
@@ -93,9 +93,9 @@ class NotificationsApi
                         )
                     )
                 )->key(
-                    'customer',
+                    'client',
                     Validator::arrayType()
-                    ->key('externalId', Validator::stringType())
+                    ->key('intpCustomerId', Validator::stringType())
                     ->key('email', Validator::email())
                 );
 

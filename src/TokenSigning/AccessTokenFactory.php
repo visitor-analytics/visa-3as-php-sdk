@@ -24,7 +24,6 @@ class AccessTokenFactory
         return new AccessToken([
             'kid' => $config['kid'],
         ], [
-            'sub' => $config['jwtClaims']['sub'],
             'roles' => [$config['jwtClaims']['role']],
             'intp' => $config['jwtClaims']['intp'],
             'intpc' => $config['jwtClaims']['intpc'] ?? null,

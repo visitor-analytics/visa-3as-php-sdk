@@ -7,7 +7,7 @@ namespace Visa\Websites;
 class Website
 {
     private string $id;
-    private string $externalId;
+    private string $intpWebsiteId;
     private string $domain;
     private string $partnerId;
     private string $packageId;
@@ -34,6 +34,22 @@ class Website
     /**
      * @return string
      */
+    public function getIntpWebsiteId(): string
+    {
+        return $this->intpWebsiteId;
+    }
+
+    /**
+     * @param string $intpWebsiteId
+     */
+    public function setIntpWebsiteId(string $intpWebsiteId): void
+    {
+        $this->intpWebsiteId = $intpWebsiteId;
+    }
+
+    /**
+     * @return string
+     */
     public function getVisaTrackingCode(): string
     {
         return $this->visaTrackingCode;
@@ -45,22 +61,6 @@ class Website
     public function setVisaTrackingCode(string $visaTrackingCode): void
     {
         $this->visaTrackingCode = $visaTrackingCode;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExternalId(): string
-    {
-        return $this->externalId;
-    }
-
-    /**
-     * @param string $externalId
-     */
-    public function setExternalId(string $externalId): void
-    {
-        $this->externalId = $externalId;
     }
 
     /**

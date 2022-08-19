@@ -28,9 +28,9 @@ class CustomerApi
         $this->customerHydrator = new CustomerHydrator();
     }
 
-    public function setIntpCustomerId(string $externalId): CustomerApi
+    public function setIntpCustomerId(string $intpCustomerId): CustomerApi
     {
-        $this->intpCustomerId = $externalId;
+        $this->intpCustomerId = $intpCustomerId;
 
         return $this;
     }

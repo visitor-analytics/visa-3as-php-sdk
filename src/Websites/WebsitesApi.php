@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Visa\Websites;
 
 use Respect\Validation\Exceptions\NestedValidationException;
@@ -29,7 +31,7 @@ class WebsitesApi
         ];
     }
 
-    public function getByExternalId($externalWebsiteId): Website
+    public function getByIntpWebsiteId($externalWebsiteId): Website
     {
         $response = $this->httpClient->get('/v2/3as/websites/' . $externalWebsiteId);
 
@@ -39,10 +41,10 @@ class WebsitesApi
     public function create(array $website): Website
     {
         $newWebsiteValidationSchema = Validator::arrayType()
-            ->key('externalId', Validator::stringType())
-            ->key('externalCustomerId', Validator::stringType())
+            ->key('intpWebsiteId', Validator::stringType())
+            ->key('intpCustomerId', Validator::stringType())
             ->key('domain', Validator::stringType())
-            ->key('packageId', Validator::stringType()->uuid('4'));
+            ->key('packageId', Validator::stringType()->uuid(4));
 
         try {
             $newWebsiteValidationSchema->assert($website);
