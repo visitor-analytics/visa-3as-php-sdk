@@ -21,7 +21,7 @@ A simple API wrapper for integrating the AAAS APIs provided by VisitorAnalytics
 #### Install via Composer
 
 ```
-composer require visa/3as-sdk
+composer require visa/3as-sdk:* --with-all-dependencies
 ```
 
 ### Git

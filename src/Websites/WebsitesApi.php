@@ -31,9 +31,9 @@ class WebsitesApi
         ];
     }
 
-    public function getByIntpWebsiteId($externalWebsiteId): Website
+    public function getByIntpWebsiteId($intpWebsiteId): Website
     {
-        $response = $this->httpClient->get('/v2/3as/websites/' . $externalWebsiteId);
+        $response = $this->httpClient->get('/v2/3as/websites/' . $intpWebsiteId);
 
         return $this->websiteHydrator->hydrateObject($response->getPayload());
     }

@@ -78,8 +78,8 @@ class VisitorAnalytics
         return $this->customerApi->setIntpCustomerId($intpCustomerId);
     }
 
-    public function website($externalId): WebsiteApi
+    public function website($intpWebsiteId): WebsiteApi
     {
-        return $this->websiteApi->setIntpWebsiteId($externalId);
+        return $this->websiteApi->setIntpWebsiteId($intpWebsiteId);
     }
 }
