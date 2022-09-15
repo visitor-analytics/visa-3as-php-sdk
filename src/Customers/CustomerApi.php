@@ -63,8 +63,8 @@ class CustomerApi
     /**
      * @throws \Exception
      */
-    public function generateIFrameDashboardUrl(): string
+    public function generateIFrameDashboardUrl(string $intpcWebsiteId): string
     {
-        return $this->iframe->generateDashboardUrl($this->intpCustomerId);
+        return $this->iframe->generateDashboardUrl($this->intpCustomerId, $intpcWebsiteId);
     }
 }

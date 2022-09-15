@@ -18,6 +18,7 @@ A simple API wrapper for integrating the AAAS APIs provided by VisitorAnalytics
   ]
 }
 ```
+
 #### Install via Composer
 
 ```
@@ -116,7 +117,7 @@ $visa->customer({INTP_CUSTOMER_ID})->delete();
 ### Generate the VisitorAnalytics Dashboard IFrame Url
 
 ```php
-$visa->customer({INTP_CUSTOMER_ID})->generateIFrameDashboardUrl();
+$visa->customer({INTP_CUSTOMER_ID})->generateIFrameDashboardUrl({INTP_WEBSITE_ID});
 ```
 
 <br>

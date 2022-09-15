@@ -22,10 +22,10 @@ class IFrameUtils
     /**
      * @throws \Exception
      */
-    public function generateDashboardUrl(string $intpcId): string
+    public function generateDashboardUrl(string $intpcId, string $intpcWebsiteId): string
     {
         $dashboardUri = $this->env === 'dev' ? self::DEV_DASHBOARD_BASE_URI : self::PROD_DASHBOARD_BASE_URI;
 
-        return $dashboardUri . '?intpc_token=' . $this->auth->generateINTPcAccessToken($intpcId);
+        return $dashboardUri . '?intpc_token=' . $this->auth->generateINTPcAccessToken($intpcId) . '&externalWebsiteId=' . $intpcWebsiteId;
     }
 }
