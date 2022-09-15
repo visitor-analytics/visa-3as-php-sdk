@@ -9,7 +9,7 @@ use Visa\TokenSigning\AccessToken;
 
 class VisaHttpClient
 {
-    public const DEV_API_GATEWAY_URI = 'http://94.130.27.191:9090';
+    public const DEV_API_GATEWAY_URI = 'https://api-gateway.va-endpoint.com';
     public const PROD_API_GATEWAY_URI = '';
 
     // http client
