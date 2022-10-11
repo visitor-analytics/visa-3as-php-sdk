@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Visa;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Visa\TokenSigning\AccessToken;
 
 class VisaHttpClient
 {

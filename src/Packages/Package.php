@@ -11,6 +11,7 @@ class Package
     private float $price;
     private string $currency;
     private int $touchpoints;
+    private string $period;
     private string $createdAt;
 
     /**
@@ -27,6 +28,22 @@ class Package
     public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPeriod(): string
+    {
+        return $this->period;
+    }
+
+    /**
+     * @param string $period
+     */
+    public function setPeriod(string $period): void
+    {
+        $this->period = $period;
     }
 
     /**

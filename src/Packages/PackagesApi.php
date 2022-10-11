@@ -31,9 +31,18 @@ class PackagesApi
         try {
             $newPackageValidationSchema = Validator::arrayType()
                 ->key('name', Validator::stringType())
-                ->key('price', Validator::floatType())
-                ->key('currency', Validator::currencyCode())
-                ->key('touchpoints', Validator::number());
+                ->key('touchpoints', Validator::intVal()->min(1))
+                ->key('price', Validator::floatVal()->min(0))
+                ->key('currency', Validator::oneOf(
+                    Validator::equals('EUR'),
+                    Validator::equals('USD'),
+                    Validator::equals('RON')
+                ))
+                ->key('period', Validator::oneOf(
+                    Validator::equals('monthly'),
+                    Validator::equals('yearly')
+                )
+                );
 
             $newPackageValidationSchema->assert($package);
 
@@ -41,7 +50,14 @@ class PackagesApi
 
             return $this->hydrator->hydrateObject($response->getPayload());
         } catch (NestedValidationException $exception) {
-            throw new \Exception(json_encode($exception->getMessages()));
+            throw new \Exception(
+                json_encode(
+                    $exception->getMessages([
+                        'period' => 'period must be one of "yearly" or "monthly"',
+                        'currency' => 'currency must be one of "EUR", "USD" or "RON"'
+                    ])
+                )
+            );
         }
     }
 

@@ -27,8 +27,8 @@ class RS256Signer implements SignerInterface
             ->issuedAt(new \DateTimeImmutable())
             ->expiresAt((new \DateTimeImmutable())->modify('+10 minutes'))
             ->withClaim('roles', $payload['roles'])
-            ->withClaim('intp', $payload['intp'])
-            ->withClaim('intpc', $payload['intpc'])
+            ->withClaim('intp_id', $payload['intp_id'])
+            ->withClaim('intpc_id', $payload['intpc_id'])
             ->withHeader('kid', $options['kid'])
             ->withHeader('typ', 'JWT')
             ->getToken(

@@ -145,7 +145,8 @@ $visa->packages->create([
     'name' => {PACKAGE_NAME},
     'touchpoints' => {TOUCHPOINT_LIMIT},
     'price' => {FLOAT},
-    'currency' => {CURRENCY_CODE} // ex: EUR, USD, RON
+    'currency' => {CURRENCY_CODE}, // ex: EUR, USD, RON
+    'period' => {PERIOD}, // ex: monthly, yearly
 ]);
 ```
 

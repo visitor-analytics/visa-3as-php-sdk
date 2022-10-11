@@ -19,16 +19,12 @@ class AccessTokenFactory
             throw new \Exception('Unsupported Algorithm. Supported RS256.');
         }
 
-        $now = Carbon::now();
-
         return new AccessToken([
             'kid' => $config['kid'],
         ], [
-            'roles' => [$config['jwtClaims']['role']],
-            'intp' => $config['jwtClaims']['intp'],
-            'intpc' => $config['jwtClaims']['intpc'] ?? null,
-            'exp' => $now->addMinutes(10)->unix(),
-            'iat' => $now->unix(),
+            'roles' => [$config['claims']['role']],
+            'intp_id' => $config['claims']['intp_id'],
+            'intpc_id' => $config['claims']['intpc_id'] ?? null,
         ], new RS256Signer($config['privateKey']));
     }
 }
