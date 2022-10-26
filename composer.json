@@ -15,12 +15,12 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "nesbot/carbon": "2.x-dev",
+        "nesbot/carbon": "2.62.1",
         "lcobucci/jwt": "4.0.x-dev",
-        "guzzlehttp/guzzle": "7.4.x-dev",
+        "guzzlehttp/guzzle": "7.5.0",
         "ext-json": "*",
         "ext-openssl": "*",
-        "laminas/laminas-hydrator": "4.4.x-dev",
+        "laminas/laminas-hydrator": "4.4.0",
         "respect/validation": "dev-master"
     },
     "require-dev": {
