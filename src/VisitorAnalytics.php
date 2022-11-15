@@ -8,13 +8,13 @@ use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
 use Visa\Customers\CustomerApi;
 use Visa\Customers\CustomersApi;
-use Visa\Notifications\NotificationsApi;
 use Visa\Packages\PackageApi;
 use Visa\Packages\PackagesApi;
 use Visa\Utils\AuthUtils;
 use Visa\Utils\IFrameUtils;
 use Visa\Websites\WebsiteApi;
 use Visa\Websites\WebsitesApi;
+use Visa\Notifications\Subscriptions\SubscriptionsApi;
 
 class VisitorAnalytics
 {
@@ -22,7 +22,7 @@ class VisitorAnalytics
     public PackagesApi $packages;
     public WebsitesApi $websites;
     public CustomersApi $customers;
-    public NotificationsApi $notifications;
+    public SubscriptionsApi $subscriptions;
 
     private PackageApi $packageApi;
     private WebsiteApi $websiteApi;
@@ -50,7 +50,7 @@ class VisitorAnalytics
         $this->customers = new CustomersApi($this->httpClient);
         $this->websiteApi = new WebsiteApi($this->httpClient);
         $this->websites = new WebsitesApi($this->httpClient);
-        $this->notifications = new NotificationsApi($this->httpClient);
+        $this->subscriptions = new SubscriptionsApi($this->httpClient);
     }
 
     private function validateSetup(array $params): void
