@@ -4,7 +4,7 @@ namespace Visa\Notifications\Subscriptions;
 
 class Subscription
 {
-    private string $websiteId;
+    private string $intpWebsiteId;
     private string $packageId;
 
     /**
@@ -26,16 +26,16 @@ class Subscription
     /**
      * @return string
      */
-    public function getWebsiteId(): string
+    public function getIntpWebsiteId(): string
     {
-        return $this->websiteId;
+        return $this->intpWebsiteId;
     }
 
     /**
-     * @param string $websiteId
+     * @param string $intpWebsiteId
      */
-    public function setWebsiteId(string $websiteId): void
+    public function setIntpWebsiteId(string $intpWebsiteId): void
     {
-        $this->websiteId = $websiteId;
+        $this->intpWebsiteId = $intpWebsiteId;
     }
 }

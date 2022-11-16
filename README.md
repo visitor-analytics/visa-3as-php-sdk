@@ -209,7 +209,7 @@ $visa->website({INTP_WEBSITE_ID})->delete());
 
 ```php
 $visa->subscriptions->upgrade([
-    "websiteId" => {INTP_WEBSITE_ID},
+    "intpWebsiteId" => {INTP_WEBSITE_ID},
     "packageId" => {PACKAGE_UUID}
 ])
 ```
@@ -218,7 +218,7 @@ $visa->subscriptions->upgrade([
 
 ```php
 $visa->subscriptions->downgrade([
-    "websiteId" => {INTP_WEBSITE_ID},
+    "intpWebsiteId" => {INTP_WEBSITE_ID},
     "packageId" => {PACKAGE_UUID}
 ])
 ```
@@ -227,7 +227,7 @@ $visa->subscriptions->downgrade([
 
 ```php
 $visa->subscriptions->cancel([
-    "websiteId" => {INTP_WEBSITE_ID},
+    "intpWebsiteId" => {INTP_WEBSITE_ID},
 ])
 ```
 
@@ -235,7 +235,7 @@ $visa->subscriptions->cancel([
 
 ```php
 $visa->subscriptions->resume([
-    "websiteId" => {INTP_WEBSITE_ID},
+    "intpWebsiteId" => {INTP_WEBSITE_ID},
 ])
 ```
 
@@ -243,7 +243,7 @@ $visa->subscriptions->resume([
 
 ```php
 $visa->subscriptions->deactivate([
-    "websiteId" => {INTP_WEBSITE_ID},
+    "intpWebsiteId" => {INTP_WEBSITE_ID},
 ])
 ```
 
