@@ -65,8 +65,8 @@ class SubscriptionsApi
     {
         $validationSchema = Validator::arrayType()
             ->key(
-                'websiteId',
-                Validator::stringType()->uuid()->notOptional()
+                'intpWebsiteId',
+                Validator::stringType()->notOptional()
             )
             ->key(
                 'packageId',
@@ -85,8 +85,8 @@ class SubscriptionsApi
     {
         $validationSchema = Validator::arrayType()
             ->key(
-                'websiteId',
-                Validator::stringType()->uuid()->notOptional()
+                'intpWebsiteId',
+                Validator::stringType()->notOptional()
             );
 
         try {
