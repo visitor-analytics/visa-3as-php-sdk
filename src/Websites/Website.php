@@ -10,7 +10,6 @@ class Website
     private string $intpWebsiteId;
     private string $domain;
     private string $partnerId;
-    private string $packageId;
     private string $customerId;
     private string $visaTrackingCode;
     private string $createdAt;
@@ -109,22 +108,6 @@ class Website
     public function setCustomerId(string $customerId): void
     {
         $this->customerId = $customerId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPackageId(): string
-    {
-        return $this->packageId;
-    }
-
-    /**
-     * @param string $packageId
-     */
-    public function setPackageId(string $packageId): void
-    {
-        $this->packageId = $packageId;
     }
 
     /**
