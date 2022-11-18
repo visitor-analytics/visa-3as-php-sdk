@@ -19,46 +19,36 @@ class SubscriptionsApi
         $this->hydrator = new SubscriptionHydrator();
     }
 
-    public  function upgrade(array $message): Subscription
+    public  function upgrade(array $message): void
     {
         $this->validatePackageChange($message);
 
-        $response = $this->httpClient->post(self::PATH . '/upgrade', $message);
-
-        return $this->hydrator->hydrateObject($response->getPayload());
+        $this->httpClient->post(self::PATH . '/upgrade', $message);
     }
 
-    public  function downgrade(array $message): Subscription
+    public  function downgrade(array $message): void
     {
         $this->validatePackageChange($message);
 
-        $response = $this->httpClient->post(self::PATH . '/downgrade', $message);
-
-        return $this->hydrator->hydrateObject($response->getPayload());
+        $this->httpClient->post(self::PATH . '/downgrade', $message);
     }
 
-    public  function cancel(array $message): Subscription {
+    public  function cancel(array $message): void {
         $this->validateStatusChange($message);
 
-        $response = $this->httpClient->post(self::PATH . '/cancel', $message);
-
-        return $this->hydrator->hydrateObject($response->getPayload());
+        $this->httpClient->post(self::PATH . '/cancel', $message);
     }
 
-    public  function resume(array $message): Subscription {
+    public  function resume(array $message): void {
         $this->validateStatusChange($message);
 
-        $response = $this->httpClient->post(self::PATH . '/resume', $message);
-
-        return $this->hydrator->hydrateObject($response->getPayload());
+        $this->httpClient->post(self::PATH . '/resume', $message);
     }
 
-    public  function deactivate(array $message): Subscription {
+    public  function deactivate(array $message): void {
         $this->validateStatusChange($message);
 
-        $response = $this->httpClient->post(self::PATH . '/deactivate', $message);
-
-        return $this->hydrator->hydrateObject($response->getPayload());
+        $this->httpClient->post(self::PATH . '/deactivate', $message);
     }
 
     private function validatePackageChange(array $message): void
