@@ -39,13 +39,15 @@ class SubscriptionsApi
         $this->httpClient->post(self::PATH . '/cancel', $message);
     }
 
-    public  function resume(array $message): void {
+    public  function resume(array $message): void
+    {
         $this->validateStatusChange($message);
 
         $this->httpClient->post(self::PATH . '/resume', $message);
     }
 
-    public  function deactivate(array $message): void {
+    public  function deactivate(array $message): void
+    {
         $this->validateStatusChange($message);
 
         $this->httpClient->post(self::PATH . '/deactivate', $message);

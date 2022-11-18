@@ -12,6 +12,8 @@ class Website
     private string $partnerId;
     private string $customerId;
     private string $visaTrackingCode;
+    private string $packageId;
+    private string $packageName;
     private string $createdAt;
 
     /**
@@ -108,6 +110,38 @@ class Website
     public function setCustomerId(string $customerId): void
     {
         $this->customerId = $customerId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPackageId(): string
+    {
+        return $this->packageId;
+    }
+
+    /**
+     * @param string $packageId
+     */
+    public function setPackageId(string $packageId): void
+    {
+        $this->packageId = $packageId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPackageName(): string
+    {
+        return $this->packageName;
+    }
+
+    /**
+     * @param string $packageName
+     */
+    public function setPackageName(string $packageName): void
+    {
+        $this->packageName = $packageName;
     }
 
     /**
