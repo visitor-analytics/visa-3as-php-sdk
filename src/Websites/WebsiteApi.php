@@ -27,14 +27,12 @@ class WebsiteApi
         return $this;
     }
 
-    public function delete(): Website
+    public function delete(): void
     {
         if (!$this->intpWebsiteId) {
             throw new \Exception('Website external id not set.');
         }
 
-        $response = $this->visaHttpClient->delete('/v2/3as/websites/' . $this->intpWebsiteId);
-
-        return $this->websiteHydrator->hydrateObject($response->getPayload());
+        $this->visaHttpClient->delete('/v2/3as/websites/' . $this->intpWebsiteId);
     }
 }

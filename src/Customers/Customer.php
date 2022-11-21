@@ -8,7 +8,6 @@ class Customer
 {
     private string $id;
     private string $intpCustomerId;
-    private string $visaId;
     private string $email;
     private string $intpId;
     private string $createdAt;
@@ -27,22 +26,6 @@ class Customer
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getVisaId(): string
-    {
-        return $this->visaId;
-    }
-
-    /**
-     * @param string $visaId
-     */
-    public function setVisaId(string $visaId): void
-    {
-        $this->visaId = $visaId;
     }
 
     /**
