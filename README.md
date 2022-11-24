@@ -1,6 +1,16 @@
 # VisitorAnalytics PHP SDK
 
-A simple API wrapper for integrating the AAAS APIs provided by VisitorAnalytics
+A simple API wrapper for integrating the AAAS APIs provided by Visitor Analytics
+
+## Getting started
+1. [Create an RSA Key Pair (PEM format)](#creating-an-rsa-key-pair)
+1. Send the resulting public key (`jwtRS256.key.pub`) to the Visitor Analytics Dev Team
+1. [Install the library](#installation)
+1. [Use the SDK instance](#how-to-use-the-library) to interract with the API
+
+## Creating an RSA Key pair
+1. Create the keypair: `ssh-keygen -t rsa -b 2048 -m PEM -f jwtRS256.key`
+1. Convert the public key to PEM: `openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub`
 
 ## Installation
 
@@ -31,7 +41,7 @@ composer require visa/3as-sdk -W
 git clone https://github.com/visitor-analytics/visa-3as-php-sdk.git
 ```
 
-## Getting Started
+## How to use the library
 
 ```php
 $visa = new VisitorAnalytics([
