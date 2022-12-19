@@ -12,6 +12,8 @@ class Package
     private string $currency;
     private int $touchpoints;
     private string $period;
+    private bool $trial;
+    private bool $recommended;
     private string $createdAt;
 
     /**
@@ -108,6 +110,38 @@ class Package
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRecommended(): bool
+    {
+        return $this->recommended;
+    }
+
+    /**
+     * @param bool $recommended
+     */
+    public function setRecommended(bool $recommended): void
+    {
+        $this->recommended = $recommended;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTrial(): bool
+    {
+        return $this->trial;
+    }
+
+    /**
+     * @param bool $trial
+     */
+    public function setTrial(bool $trial): void
+    {
+        $this->trial = $trial;
     }
 
     /**
