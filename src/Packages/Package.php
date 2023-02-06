@@ -12,6 +12,9 @@ class Package
     private string $currency;
     private int $touchpoints;
     private string $period;
+    private bool $recommended;
+    private bool $trial;
+    private string $intpId;
     private string $createdAt;
 
     /**
@@ -28,6 +31,70 @@ class Package
     public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntpId(): string
+    {
+        return $this->intpId;
+    }
+
+    /**
+     * @param string $intpId
+     */
+    public function setIntpId($intpId)
+    {
+        $this->intpId = $intpId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRecommended()
+    {
+        return $this->recommended;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRecommended()
+    {
+        return $this->recommended;
+    }
+
+    /**
+     * @param bool $recommended
+     */
+    public function setRecommended($recommended)
+    {
+        $this->recommended = $recommended;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTrial(): bool
+    {
+        return $this->trial;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getTrial(): bool
+    {
+        return $this->trial;
+    }
+
+    /**
+     * @param bool $trial
+     */
+    public function setTrial($trial)
+    {
+        $this->trial = $trial;
     }
 
     /**
