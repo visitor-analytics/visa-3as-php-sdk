@@ -36,8 +36,8 @@ final class RS256SignerTest extends TestCase
             'iat' => $now,
             'exp' => $now->modify('+10 minutes'),
             'roles' => ['intp'],
-            'intp' => 'be784859-d477-404c-8021-c5558498a1fa',
-            'intpc' => null
+            'intp_id' => 'be784859-d477-404c-8021-c5558498a1fa',
+            'intpc_id' => null
         ], ['kid' => 'be784859-d477-404c-8021-c5558498a1fa']);
 
         $this->assertMatchesRegularExpression("/^([a-zA-Z\d_=]+)\.([a-zA-Z\d_=]+)\.([a-zA-Z\d_\-\/=]*)$/", $accessToken);
@@ -51,16 +51,16 @@ final class RS256SignerTest extends TestCase
             'iat' => $now,
             'exp' => $now->modify('+10 minutes'),
             'roles' => ['intp'],
-            'intp' => 'be784859-d477-404c-8021-c5558498a1fa',
-            'intpc' => null,
+            'intp_id' => 'be784859-d477-404c-8021-c5558498a1fa',
+            'intpc_id' => null,
         ], ['kid' => 'be784859-d477-404c-8021-c5558498a1fa']);
 
         $secondAccessToken = $this->signer->sign([
             'iat' => $now,
             'exp' => $now->modify('+10 minutes'),
             'roles' => ['intp'],
-            'intp' => 'be784859-d477-404c-8021-c5558498a1fa',
-            'intpc' => null,
+            'intp_id' => 'be784859-d477-404c-8021-c5558498a1fa',
+            'intpc_id' => null,
         ], ['kid' => 'be784859-d477-404c-8021-c5558498a1fa']);
 
         $this->assertNotEquals($firstAccessToken, $secondAccessToken);
