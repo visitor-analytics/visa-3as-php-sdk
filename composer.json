@@ -2,6 +2,7 @@
     "name": "visa/3as-sdk",
     "description": "PHP SDK for 3AS Companies",
     "type": "library",
+    "version": "1.0.0",
     "autoload": {
         "psr-4": {
             "Visa\\": "src/"
@@ -13,7 +14,7 @@
             "email": "os@visitor-analytics.io"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "nesbot/carbon": "2.62.1",
         "lcobucci/jwt": "4.3.0",
