@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6564af57a320cb845f4ebdb84f382f63",
+    "content-hash": "7e5d97b72d2a232b8e26e386494193e6",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -1029,48 +1029,43 @@
         },
         {
             "name": "respect/validation",
-            "version": "dev-master",
+            "version": "2.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Respect/Validation.git",
-                "reference": "3dcd859d986f1b586b5539ea19962723ab7352ed"
+                "reference": "afa4cc41eaffe5c1b6e88c1661d9c082af9bbadc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Respect/Validation/zipball/3dcd859d986f1b586b5539ea19962723ab7352ed",
-                "reference": "3dcd859d986f1b586b5539ea19962723ab7352ed",
+                "url": "https://api.github.com/repos/Respect/Validation/zipball/afa4cc41eaffe5c1b6e88c1661d9c082af9bbadc",
+                "reference": "afa4cc41eaffe5c1b6e88c1661d9c082af9bbadc",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0",
+                "php": "^8.0 || ^8.1 || ^8.2",
                 "respect/stringifier": "^0.2.0",
-                "sokil/php-isocodes": "^3.3",
                 "symfony/polyfill-mbstring": "^1.2"
             },
             "require-dev": {
                 "egulias/email-validator": "^3.0",
-                "malukenho/docheader": "^0.1",
+                "giggsey/libphonenumber-for-php-lite": "^8.13",
+                "malukenho/docheader": "^1.0",
                 "mikey179/vfsstream": "^1.6",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-deprecation-rules": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpunit/phpunit": "^9.3",
+                "phpstan/phpstan": "^1.9",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpunit/phpunit": "^9.6",
                 "psr/http-message": "^1.0",
                 "respect/coding-standard": "^3.0",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symfony/validator": "^3.0||^4.0",
-                "zendframework/zend-validator": "^2.1"
+                "squizlabs/php_codesniffer": "^3.7"
             },
             "suggest": {
-                "egulias/email-validator": "Strict (RFC compliant) email validation",
+                "egulias/email-validator": "Improves the Email rule if available",
                 "ext-bcmath": "Arbitrary Precision Mathematics",
                 "ext-fileinfo": "File Information",
                 "ext-mbstring": "Multibyte String Functions",
-                "sokil/php-isocodes": "To enable ISO codes validations",
-                "symfony/validator": "Use Symfony validator through Respect\\Validation",
-                "zendframework/zend-validator": "Use Zend Framework validator through Respect\\Validation"
+                "giggsey/libphonenumber-for-php-lite": "Enables the phone rule if available"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -1096,67 +1091,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Respect/Validation/issues",
-                "source": "https://github.com/Respect/Validation/tree/2.2.0"
+                "source": "https://github.com/Respect/Validation/tree/2.3"
             },
-            "time": "2021-02-06T15:29:39+00:00"
-        },
-        {
-            "name": "sokil/php-isocodes",
-            "version": "3.3.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sokil/php-isocodes.git",
-                "reference": "3342d946e85055592a216520f2091e6001265b78"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sokil/php-isocodes/zipball/3342d946e85055592a216520f2091e6001265b78",
-                "reference": "3342d946e85055592a216520f2091e6001265b78",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "ext-gettext": "*",
-                "infection/infection": ">=0.11.5",
-                "php-coveralls/php-coveralls": "^2.1",
-                "phpmd/phpmd": "@stable",
-                "phpunit/phpunit": ">=7.5.20",
-                "squizlabs/php_codesniffer": "^3.4",
-                "symfony/translation": "^4.4.17|^5.2",
-                "vimeo/psalm": "^4.3"
-            },
-            "suggest": {
-                "ext-gettext": "Required for gettext translation driver",
-                "phpbench/phpbench": "Required to run benchmarks",
-                "symfony/translation": "Translation driver by Symfont project"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Sokil\\IsoCodes\\": [
-                        "src/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dmytro Sokil",
-                    "email": "dmytro.sokil@gmail.com"
-                }
-            ],
-            "description": "ISO country, subdivision, language, currency and script definitions and their translations. Based on pythons pycountry and Debian's iso-codes.",
-            "support": {
-                "issues": "https://github.com/sokil/php-isocodes/issues",
-                "source": "https://github.com/sokil/php-isocodes/tree/3.3.15"
-            },
-            "time": "2021-12-02T06:59:55+00:00"
+            "time": "2023-03-11T20:43:10+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -5754,7 +5691,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "respect/validation": 20,
         "ramsey/conventional-commits": 20,
         "marcocesarato/php-conventional-changelog": 20
     },
