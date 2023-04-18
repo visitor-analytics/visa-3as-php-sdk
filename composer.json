@@ -1,5 +1,5 @@
 {
-    "name": "visa/3as-sdk",
+    "name": "visitor-analytics/3as-sdk",
     "description": "PHP SDK for 3AS Companies",
     "type": "library",
     "autoload": {
