@@ -3,12 +3,14 @@
 A simple API wrapper for integrating the AAAS APIs provided by Visitor Analytics
 
 ## Getting started
+
 1. [Create an RSA Key Pair (PEM format)](#creating-an-rsa-key-pair)
 1. Send the resulting public key (`jwtRS256.key.pub`) to the Visitor Analytics Dev Team
 1. [Install the library](#installation)
 1. [Use the SDK instance](#how-to-use-the-library) to interract with the API
 
 ## Creating an RSA Key pair
+
 1. Create the keypair: `ssh-keygen -t rsa -b 2048 -m PEM -f jwtRS256.key`
 1. Convert the public key to PEM: `openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub`
 
@@ -16,29 +18,10 @@ A simple API wrapper for integrating the AAAS APIs provided by Visitor Analytics
 
 ### Composer
 
-#### composer.json
-
-```json
-{
-  "repositories": [
-    {
-      "type": "github",
-      "url": "https://github.com/visitor-analytics/visa-3as-php-sdk"
-    }
-  ]
-}
-```
-
 #### Install via Composer
 
 ```
-composer require visa/3as-sdk -W
-```
-
-### Git
-
-```
-git clone https://github.com/visitor-analytics/visa-3as-php-sdk.git
+composer require visitor-analytics/3as-sdk
 ```
 
 ## How to use the library
@@ -49,7 +32,7 @@ $visa = new VisitorAnalytics([
          'id' => {INTP_ID},
          'privateKey' => {INTP_RS256_PRIVATE_KEY}
      ],
-     'env' => 'dev'
+     'env' => 'stage'
 ]);
 ```
 
