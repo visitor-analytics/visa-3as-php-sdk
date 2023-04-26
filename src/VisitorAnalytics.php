@@ -59,7 +59,10 @@ class VisitorAnalytics
             ->key('intp', Validator::arrayType()
                 ->key('id', Validator::stringType()->uuid(4))
                 ->key('privateKey', Validator::stringType()))
-            ->key('env', Validator::oneOf(Validator::equals('dev'), Validator::equals('prod')));
+            ->key('env', Validator::oneOf(
+                Validator::equals('dev'),
+                Validator::equals('stage'),
+            ));
 
         try {
             $sdkSetupValidationSchema->assert($params);

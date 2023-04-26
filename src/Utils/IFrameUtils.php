@@ -7,7 +7,7 @@ namespace Visa\Utils;
 class IFrameUtils
 {
     public const DEV_DASHBOARD_BASE_URI = 'https://dev-dashboard.va-endpoint.com';
-    public const PROD_DASHBOARD_BASE_URI = '';
+    public const STAGE_DASHBOARD_BASE_URI = 'https://stage-api-gateway.va-endpoint.com';
 
     private AuthUtils $auth;
 
@@ -24,7 +24,7 @@ class IFrameUtils
      */
     public function generateDashboardUrl(string $intpcId, string $intpcWebsiteId): string
     {
-        $dashboardUri = $this->env === 'dev' ? self::DEV_DASHBOARD_BASE_URI : self::PROD_DASHBOARD_BASE_URI;
+        $dashboardUri = $this->env === 'dev' ? self::DEV_DASHBOARD_BASE_URI : self::STAGE_DASHBOARD_BASE_URI;
 
         return $dashboardUri . '?intpc_token=' . $this->auth->generateINTPcAccessToken($intpcId) . '&externalWebsiteId=' . $intpcWebsiteId;
     }
