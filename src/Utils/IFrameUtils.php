@@ -7,7 +7,7 @@ namespace Visa\Utils;
 class IFrameUtils
 {
     public const DEV_DASHBOARD_BASE_URI = 'https://dev-dashboard.va-endpoint.com';
-    public const STAGE_DASHBOARD_BASE_URI = 'https://stage-api-gateway.va-endpoint.com';
+    public const STAGE_DASHBOARD_BASE_URI = 'https://stage-dashboard.va-endpoint.com';
 
     private AuthUtils $auth;
 
