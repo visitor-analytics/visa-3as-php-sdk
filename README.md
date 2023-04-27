@@ -1,6 +1,6 @@
 # VisitorAnalytics PHP SDK
 
-A simple API wrapper for integrating the AAAS APIs provided by Visitor Analytics
+A simple API wrapper for integrating the Analysis as a Service (3AS) APIs provided by Visitor Analytics
 
 ## Getting started
 
@@ -36,48 +36,53 @@ $visa = new VisitorAnalytics([
 ]);
 ```
 
-<br>
+## Concepts
 
-## Pagination
+### Terms
 
-`list` methods support pagination options as follows:
+- **INTP (Integration Partner)**\
+     The company that is integrating the analytics as a service solution (3AS)
+- **STPs (Server Touchpoints)**\
+     Credits used to measure data usage for a given website 
+- **Customer (INTPC integration partner customer)**\
+     One user of the INTP, can have many websites
+- **Website**\
+     The website where data will be tracked. It has a subscription with a package with a certain limit of STPs.
+     This subscription can be upgraded or downgraded. 
+     When the website is created a tracking code snippet is returned that must be embedded within the websites HTML.
+- **Package**\
+     A package has a price and contains a certain number of STPs. They are used when upgrading/downgrading the subscription of a website.
+     
+### General
 
-```php
-$visa->customers->list(['page' => 0, 'pageSize' => 5])
-```
+Most endpoints that deal with customers or websites support some form of an ID which can be provided and then used for all following requests.
 
-If no pagination options are provided, the `pageSize` defaults to 10 items.
+For example creating a new customer with a website requires an `intpCustomerId` and an `intpWebsiteId`. These must be provided by the INTP and are intended to make integrations easier because there is no need to save any external IDs. Then when getting data about a customer the request is done using the same `intpCustomerId` provided on creation.
 
-The `page` count starts from 0.
-<br>
+**Example implementation flow**
+1. Create a new customer with a website
+1. Inject the resulting tracking code in the website's HTML
+1. Use the SDK's [generate iframe url](#generate-the-visitoranalytics-dashboard-iframe-url) method to create an url 
+1. Show an iframe to the user with the url created previously
+1. Show a modal to the user to upgrade his subscription
+1. Display all the available packages using the SDK
+1. After the payment is complete, use the SDK to upgrade the subscription of the website
 
 ## Available APIs
 
-- customer
-- customers
-- package
-- packages
-- website
-- websites
-- auth
+- [Customers](#customers-api)
+- [Customer](#customer-api)
+- [Package](#package-api)
+- [Packages](#packages-api)
+- [Website](#website-api)
+- [Websites](#websites-api)
+- [Utils](#utils-api)
 
-## Customers API
+### Customers API
 
 Integration partners (INTP) are able to get data about their customers (INTPc).
 
-### List all available customers
-
-```php
-$visa->customers->list();
-```
-
-### Get a single customer by its INTP given id
-
-```php
-$visa->customers->getByIntpCustomerId({INTP_CUSTOMER_ID});
-```
-
-### Register a new customer
+#### Register a new customer
 
 ```php
 $visa->customers->create([
@@ -91,47 +96,58 @@ $visa->customers->create([
 ]);
 ```
 
-<br>
+#### List all available customers
 
-## Customer API
+```php
+$visa->customers->list();
+```
 
-### List all websites belonging to an INTP Customer
+#### Get a single customer by its INTP given id
+
+```php
+$visa->customers->getByIntpCustomerId({INTP_CUSTOMER_ID});
+```
+
+### Customer API
+
+#### List all websites belonging to an INTP Customer
 
 ```php
 $visa->customer({INTP_CUSTOMER_ID})->listWebsites();
 ```
 
-### Delete a Customer belonging to an INTP
+#### Delete a Customer belonging to an INTP
 
 ```php
 $visa->customer({INTP_CUSTOMER_ID})->delete();
 ```
 
-### Generate the VisitorAnalytics Dashboard IFrame Url
+#### Generate the VisitorAnalytics Dashboard IFrame Url
+
+This is one of the essential methods to use when using the iframe appoach 3AS. 
+It creates an URL for a given customer and website combination that shows the Visitor Analytics dashboard in the theme configured by the INTP.
 
 ```php
 $visa->customer({INTP_CUSTOMER_ID})->generateIFrameDashboardUrl({INTP_WEBSITE_ID});
 ```
 
-<br>
-
-## Packages API
+### Packages API
 
 An Integration Partner (INTP) is able to get data about their packages
 
-### List all available packages
+#### List all available packages
 
 ```php
 $visa->packages->list();
 ```
 
-### Get a single package by ID
+#### Get a single package by ID
 
 ```php
 $visa->packages->getById({PACKAGE_UUID});
 ```
 
-### Create a package
+#### Create a package
 
 ```php
 $visa->packages->create([
@@ -143,11 +159,9 @@ $visa->packages->create([
 ]);
 ```
 
-<br>
+### Package API
 
-## Package API
-
-### An INTP can update its packages
+#### An INTP can update its packages
 
 ```php
 $visa->package({PACKAGE_UUID})->update([
@@ -155,23 +169,21 @@ $visa->package({PACKAGE_UUID})->update([
 ]);
 ```
 
-<br>
+### Websites API
 
-## Websites API
-
-### List all websites
+#### List all websites
 
 ```php
 $visa->websites->list();
 ```
 
-### Get a single website by its INTP given id
+#### Get a single website by its INTP given id
 
 ```php
 $visa->websites->getByIntpWebsiteId({INTP_WEBSITE_ID});
 ```
 
-### Create a website
+#### Create a website
 
 ```php
 $visa->websites->create([
@@ -184,17 +196,13 @@ $visa->websites->create([
 
 <br>
 
-## Website API
+### Website API
 
-### Delete a website by its INTP given id
+#### Delete a website by its INTP given id
 
 ```php
 $visa->website({INTP_WEBSITE_ID})->delete());
 ```
-
-<br>
-
-## Subscription Notifications
 
 ### API for managing subscription state
 
@@ -240,16 +248,28 @@ $visa->subscriptions->deactivate([
 ])
 ```
 
-## Utils API
+### Utils API
 
-### Generate a valid access token for the current INTP configuration.
+#### Generate a valid access token for the current INTP configuration.
 
 ```php
 $visa->auth->generateINTPAccessToken();
 ```
 
-### Generate a valid access token for the current INTPc configuration.
+#### Generate a valid access token for the current INTPc configuration.
 
 ```php
 $visa->auth->generateINTPcAccessToken({INTP_CUSTOMER_ID});
 ```
+
+## Pagination
+
+`list` methods support pagination options as follows:
+
+```php
+$visa->customers->list(['page' => 0, 'pageSize' => 5])
+```
+
+If no pagination options are provided, the `pageSize` defaults to 10 items.
+
+The `page` count starts from 0.
