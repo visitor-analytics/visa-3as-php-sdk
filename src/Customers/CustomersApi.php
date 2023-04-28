@@ -30,7 +30,6 @@ class CustomersApi
                     ->key('intpWebsiteId', Validator::stringType())
                     ->key('domain', Validator::stringType())
                     ->key('packageId', Validator::stringType()->uuid())
-                    ->key('billingDate', Validator::optional(Validator::stringType()))
             );
 
         try {
