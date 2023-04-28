@@ -44,7 +44,8 @@ class WebsitesApi
             ->key('intpWebsiteId', Validator::stringType())
             ->key('intpCustomerId', Validator::stringType())
             ->key('domain', Validator::stringType())
-            ->key('packageId', Validator::stringType()->uuid(4));
+            ->key('packageId', Validator::stringType()->uuid(4))
+            ->key('billingDate', Validator::optional(Validator::stringType()));
 
         try {
             $newWebsiteValidationSchema->assert($website);

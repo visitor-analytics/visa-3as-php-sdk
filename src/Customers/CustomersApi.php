@@ -23,7 +23,15 @@ class CustomersApi
     {
         $newClientValidationSchema = Validator::arrayType()
             ->key('intpCustomerId', Validator::stringType())
-            ->key('email', Validator::email());
+            ->key('email', Validator::email())
+            ->key(
+                'website',
+                Validator::arrayType()
+                    ->key('intpWebsiteId', Validator::stringType())
+                    ->key('domain', Validator::stringType())
+                    ->key('packageId', Validator::stringType()->uuid())
+                    ->key('billingDate', Validator::optional(Validator::stringType()))
+            );
 
         try {
             $newClientValidationSchema->assert($customer);

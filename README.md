@@ -41,18 +41,18 @@ $visa = new VisitorAnalytics([
 ### Terms
 
 - **INTP (Integration Partner)**\
-     The company that is integrating the analytics as a service solution (3AS)
+   The company that is integrating the analytics as a service solution (3AS)
 - **STPs (Server Touchpoints)**\
-     Credits used to measure data usage for a given website 
+   Credits used to measure data usage for a given website
 - **Customer (INTPC integration partner customer)**\
-     One user of the INTP, can have many websites
+   One user of the INTP, can have many websites
 - **Website**\
-     The website where data will be tracked. It has a subscription with a package with a certain limit of STPs.
-     This subscription can be upgraded or downgraded. 
-     When the website is created a tracking code snippet is returned that must be embedded within the websites HTML.
+   The website where data will be tracked. It has a subscription with a package with a certain limit of STPs.
+  This subscription can be upgraded or downgraded.
+  When the website is created a tracking code snippet is returned that must be embedded within the websites HTML.
 - **Package**\
-     A package has a price and contains a certain number of STPs. They are used when upgrading/downgrading the subscription of a website.
-     
+   A package has a price and contains a certain number of STPs. They are used when upgrading/downgrading the subscription of a website.
+
 ### General
 
 Most endpoints that deal with customers or websites support some form of an ID which can be provided and then used for all following requests.
@@ -60,9 +60,10 @@ Most endpoints that deal with customers or websites support some form of an ID w
 For example creating a new customer with a website requires an `intpCustomerId` and an `intpWebsiteId`. These must be provided by the INTP and are intended to make integrations easier because there is no need to save any external IDs. Then when getting data about a customer the request is done using the same `intpCustomerId` provided on creation.
 
 **Example implementation flow**
+
 1. Create a new customer with a website
 1. Inject the resulting tracking code in the website's HTML
-1. Use the SDK's [generate iframe url](#generate-the-visitoranalytics-dashboard-iframe-url) method to create an url 
+1. Use the SDK's [generate iframe url](#generate-the-visitoranalytics-dashboard-iframe-url) method to create an url
 1. Show an iframe to the user with the url created previously
 1. Show a modal to the user to upgrade his subscription
 1. Display all the available packages using the SDK
@@ -91,7 +92,8 @@ $visa->customers->create([
         'website' => [
             'intpWebsiteId' => {INTP_WEBSITE_ID},
             'domain' => {INTP_WEBSITE_DOMAIN_URI},
-            'packageId' => {PACKAGE_UUID}
+            'packageId' => {PACKAGE_UUID},
+            'billingDate' => {ISO_DATE_STRING} (optional, defaults to current time)
         ]
 ]);
 ```
@@ -124,7 +126,7 @@ $visa->customer({INTP_CUSTOMER_ID})->delete();
 
 #### Generate the VisitorAnalytics Dashboard IFrame Url
 
-This is one of the essential methods to use when using the iframe appoach 3AS. 
+This is one of the essential methods to use when using the iframe appoach 3AS.
 It creates an URL for a given customer and website combination that shows the Visitor Analytics dashboard in the theme configured by the INTP.
 
 ```php
@@ -190,7 +192,8 @@ $visa->websites->create([
     'intpWebsiteId' => {INTP_WEBSITE_ID},
     'intpCustomerId' => {INTP_CUSTOMER_ID},
     'domain' => {INTP_WEBSITE_DOMAIN},
-    'packageId' => {PACKAGE_UUID}
+    'packageId' => {PACKAGE_UUID},
+    'billingDate' => {ISO_DATE_STRING} (optional, defaults to current time)
 ]);
 ```
 
@@ -211,7 +214,8 @@ $visa->website({INTP_WEBSITE_ID})->delete());
 ```php
 $visa->subscriptions->upgrade([
     "intpWebsiteId" => {INTP_WEBSITE_ID},
-    "packageId" => {PACKAGE_UUID}
+    "packageId" => {PACKAGE_UUID},
+    "trial" => {true|false}
 ])
 ```
 
