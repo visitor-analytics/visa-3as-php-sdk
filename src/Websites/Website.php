@@ -15,6 +15,8 @@ class Website
     private string $packageId;
     private string $packageName;
     private string $createdAt;
+    private bool   $inTrial;
+    private bool   $hadTrial;
 
     /**
      * @return string
@@ -158,5 +160,53 @@ class Website
     public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInTrial(): bool
+    {
+        return $this->inTrial;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getInTrial(): bool
+    {
+        return $this->inTrial;
+    }
+
+    /**
+     * @param bool $inTrial
+     */
+    public function setInTrial(bool $inTrial): void
+    {
+        $this->inTrial = $inTrial;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasHadTrial(): bool
+    {
+        return $this->hadTrial;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHadTrial(): bool
+    {
+        return $this->hadTrial;
+    }
+
+    /**
+     * @param bool $hadTrial
+     */
+    public function setHadTrial(bool $hadTrial): void
+    {
+        $this->hadTrial = $hadTrial;
     }
 }
