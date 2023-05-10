@@ -13,7 +13,6 @@ class Package
     private int $touchpoints;
     private string $period;
     private bool $recommended;
-    private bool $trial;
     private string $intpId;
     private string $createdAt;
 
@@ -71,30 +70,6 @@ class Package
     public function setRecommended($recommended)
     {
         $this->recommended = $recommended;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isTrial(): bool
-    {
-        return $this->trial;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getTrial(): bool
-    {
-        return $this->trial;
-    }
-
-    /**
-     * @param bool $trial
-     */
-    public function setTrial($trial)
-    {
-        $this->trial = $trial;
     }
 
     /**
