@@ -6,16 +6,16 @@ namespace Visa\TokenSigning;
 
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Signer\Rsa\Sha256;
+use Lcobucci\JWT\Signer\Rsa\Sha512;
 
-class RS256Signer implements SignerInterface
+class RS512Signer implements SignerInterface
 {
     private Configuration $config;
 
     public function __construct(string $privateKey)
     {
         $this->config = Configuration::forAsymmetricSigner(
-            new Sha256(),
+            new Sha512(),
             InMemory::plainText($privateKey),
             InMemory::empty()
         );

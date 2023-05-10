@@ -7,13 +7,16 @@ namespace Visa\Websites;
 class Website
 {
     private string $id;
-    private string $externalId;
+    private string $intpWebsiteId;
     private string $domain;
     private string $partnerId;
-    private string $packageId;
     private string $customerId;
     private string $visaTrackingCode;
+    private string $packageId;
+    private string $packageName;
     private string $createdAt;
+    private bool   $inTrial;
+    private bool   $hadTrial;
 
     /**
      * @return string
@@ -34,6 +37,22 @@ class Website
     /**
      * @return string
      */
+    public function getIntpWebsiteId(): string
+    {
+        return $this->intpWebsiteId;
+    }
+
+    /**
+     * @param string $intpWebsiteId
+     */
+    public function setIntpWebsiteId(string $intpWebsiteId): void
+    {
+        $this->intpWebsiteId = $intpWebsiteId;
+    }
+
+    /**
+     * @return string
+     */
     public function getVisaTrackingCode(): string
     {
         return $this->visaTrackingCode;
@@ -45,22 +64,6 @@ class Website
     public function setVisaTrackingCode(string $visaTrackingCode): void
     {
         $this->visaTrackingCode = $visaTrackingCode;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExternalId(): string
-    {
-        return $this->externalId;
-    }
-
-    /**
-     * @param string $externalId
-     */
-    public function setExternalId(string $externalId): void
-    {
-        $this->externalId = $externalId;
     }
 
     /**
@@ -130,6 +133,22 @@ class Website
     /**
      * @return string
      */
+    public function getPackageName(): string
+    {
+        return $this->packageName;
+    }
+
+    /**
+     * @param string $packageName
+     */
+    public function setPackageName(string $packageName): void
+    {
+        $this->packageName = $packageName;
+    }
+
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
@@ -141,5 +160,53 @@ class Website
     public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInTrial(): bool
+    {
+        return $this->inTrial;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getInTrial(): bool
+    {
+        return $this->inTrial;
+    }
+
+    /**
+     * @param bool $inTrial
+     */
+    public function setInTrial(bool $inTrial): void
+    {
+        $this->inTrial = $inTrial;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasHadTrial(): bool
+    {
+        return $this->hadTrial;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHadTrial(): bool
+    {
+        return $this->hadTrial;
+    }
+
+    /**
+     * @param bool $hadTrial
+     */
+    public function setHadTrial(bool $hadTrial): void
+    {
+        $this->hadTrial = $hadTrial;
     }
 }

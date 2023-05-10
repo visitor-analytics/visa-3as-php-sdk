@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Visa\Websites;
 
 use Visa\HydratorInterface;
@@ -7,7 +9,7 @@ use Visa\VisaHttpClient;
 
 class WebsiteApi
 {
-    private string $externalId;
+    private string $intpWebsiteId;
 
     private VisaHttpClient $visaHttpClient;
     private HydratorInterface $websiteHydrator;
@@ -18,21 +20,19 @@ class WebsiteApi
         $this->websiteHydrator = new WebsiteHydrator();
     }
 
-    public function setExternalId(string $externalId): WebsiteApi
+    public function setIntpWebsiteId(string $intpWebsiteId): WebsiteApi
     {
-        $this->externalId = $externalId;
+        $this->intpWebsiteId = $intpWebsiteId;
 
         return $this;
     }
 
-    public function delete(): Website
+    public function delete(): void
     {
-        if (!$this->externalId) {
+        if (!$this->intpWebsiteId) {
             throw new \Exception('Website external id not set.');
         }
 
-        $response = $this->visaHttpClient->delete('/v2/3as/websites/' . $this->externalId);
-
-        return $this->websiteHydrator->hydrateObject($response->getPayload());
+        $this->visaHttpClient->delete('/v2/3as/websites/' . $this->intpWebsiteId);
     }
 }

@@ -46,6 +46,6 @@ class CustomersApiTest extends TestCase
 
         $customersApi = new CustomersApi($httpClient);
 
-        $this->assertInstanceOf(Customer::class, $customersApi->getByExternalId('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
+        $this->assertInstanceOf(Customer::class, $customersApi->getByIntpCustomerId('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
     }
 }

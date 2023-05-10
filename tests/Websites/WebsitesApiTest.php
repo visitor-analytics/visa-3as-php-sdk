@@ -48,7 +48,7 @@ class WebsitesApiTest extends TestCase
 
         $this->assertInstanceOf(
             Website::class,
-            $websiteApi->getByExternalId('9e595bdc-b79c-4c32-9d2f-80be6a67785c')
+            $websiteApi->getByIntpWebsiteId('9e595bdc-b79c-4c32-9d2f-80be6a67785c')
         );
     }
 }

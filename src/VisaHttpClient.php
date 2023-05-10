@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace Visa;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Visa\TokenSigning\AccessToken;
 
 class VisaHttpClient
 {
-    public const DEV_API_GATEWAY_URI = 'http://94.130.27.191:9090';
-    public const PROD_API_GATEWAY_URI = '';
+    public const DEV_API_GATEWAY_URI = 'https://api-gateway.va-endpoint.com';
+    public const STAGE_API_GATEWAY_URI = 'https://stage-api-gateway.va-endpoint.com';
 
     // http client
     private $http;
     // visa gateway
     private string $apiGatewayBaseUri;
-    // sdk version
-    private string $version = 'development';
     // authentication
     private string $accessToken;
 
@@ -28,7 +25,7 @@ class VisaHttpClient
     {
         $this->accessToken = $params['accessToken'];
 
-        $this->apiGatewayBaseUri = $params['env'] === 'dev' ? self::DEV_API_GATEWAY_URI : self::PROD_API_GATEWAY_URI;
+        $this->apiGatewayBaseUri = $params['env'] === 'dev' ? self::DEV_API_GATEWAY_URI : self::STAGE_API_GATEWAY_URI;
 
         $this->http = new \GuzzleHttp\Client([
             'base_uri' => $this->apiGatewayBaseUri,

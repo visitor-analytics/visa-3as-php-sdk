@@ -22,8 +22,15 @@ class CustomersApi
     public function create(array $customer): Customer
     {
         $newClientValidationSchema = Validator::arrayType()
-            ->key('externalId', Validator::stringType())
-            ->key('email', Validator::email());
+            ->key('intpCustomerId', Validator::stringType())
+            ->key('email', Validator::email())
+            ->key(
+                'website',
+                Validator::arrayType()
+                    ->key('intpWebsiteId', Validator::stringType())
+                    ->key('domain', Validator::stringType())
+                    ->key('packageId', Validator::stringType()->uuid())
+            );
 
         try {
             $newClientValidationSchema->assert($customer);
@@ -46,9 +53,9 @@ class CustomersApi
         ];
     }
 
-    public function getByExternalId($externalId): Customer
+    public function getByIntpCustomerId($intpCustomerId): Customer
     {
-        $response = $this->httpClient->get('/v2/3as/customers/' . $externalId);
+        $response = $this->httpClient->get('/v2/3as/customers/' . $intpCustomerId);
 
         return $this->hydrator->hydrateObject($response->getPayload());
     }

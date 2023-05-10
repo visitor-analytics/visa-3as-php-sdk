@@ -7,9 +7,9 @@ namespace Visa\Customers;
 class Customer
 {
     private string $id;
-    private string $externalId;
+    private string $intpCustomerId;
     private string $email;
-    private string $companyId;
+    private string $intpId;
     private string $createdAt;
 
     /**
@@ -31,17 +31,17 @@ class Customer
     /**
      * @return string
      */
-    public function getExternalId(): string
+    public function getIntpCustomerId(): string
     {
-        return $this->externalId;
+        return $this->intpCustomerId;
     }
 
     /**
-     * @param string $externalId
+     * @param string $intpCustomerId
      */
-    public function setExternalId(string $externalId): void
+    public function setIntpCustomerId(string $intpCustomerId): void
     {
-        $this->externalId = $externalId;
+        $this->intpCustomerId = $intpCustomerId;
     }
 
     /**
@@ -63,17 +63,17 @@ class Customer
     /**
      * @return string
      */
-    public function getCompanyId(): string
+    public function getIntpId(): string
     {
-        return $this->companyId;
+        return $this->intpId;
     }
 
     /**
-     * @param string $companyId
+     * @param string $intpId
      */
-    public function setCompanyId(string $companyId): void
+    public function setIntpId(string $intpId): void
     {
-        $this->companyId = $companyId;
+        $this->intpId = $intpId;
     }
 
     /**
