@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Visa;
 
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
 class VisaHttpClient
 {
     public const DEV_API_GATEWAY_URI = 'https://api-gateway.va-endpoint.com';
     public const STAGE_API_GATEWAY_URI = 'https://stage-api-gateway.va-endpoint.com';
+    public const PRODUCTION_API_GATEWAY_URI = 'https://api-gateway.visitor-analytics.io';
 
     // http client
     private $http;
@@ -25,7 +27,20 @@ class VisaHttpClient
     {
         $this->accessToken = $params['accessToken'];
 
-        $this->apiGatewayBaseUri = $params['env'] === 'dev' ? self::DEV_API_GATEWAY_URI : self::STAGE_API_GATEWAY_URI;
+        switch ($params['env']) {
+            case 'dev':
+                $this->apiGatewayBaseUri = self::DEV_API_GATEWAY_URI;
+                break;
+            case 'stage':
+                $this->apiGatewayBaseUri = self::STAGE_API_GATEWAY_URI;
+                break;
+            case 'production':
+                $this->apiGatewayBaseUri = self::PRODUCTION_API_GATEWAY_URI;
+                break;
+            default:
+                throw new Exception("unsupported sdk env");
+                break;
+        }
 
         $this->http = new \GuzzleHttp\Client([
             'base_uri' => $this->apiGatewayBaseUri,
