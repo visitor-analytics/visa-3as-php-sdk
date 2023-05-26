@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Visa\Websites;
 
-use Visa\HydratorInterface;
 use Visa\VisaHttpClient;
 
 class WebsiteApi
@@ -12,12 +11,10 @@ class WebsiteApi
     private string $intpWebsiteId;
 
     private VisaHttpClient $visaHttpClient;
-    private HydratorInterface $websiteHydrator;
 
     public function __construct(VisaHttpClient $visaHttpClient)
     {
         $this->visaHttpClient = $visaHttpClient;
-        $this->websiteHydrator = new WebsiteHydrator();
     }
 
     public function setIntpWebsiteId(string $intpWebsiteId): WebsiteApi
