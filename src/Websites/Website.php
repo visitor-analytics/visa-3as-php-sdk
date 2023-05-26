@@ -17,6 +17,7 @@ class Website
     private string $createdAt;
     private bool   $inTrial;
     private bool   $hadTrial;
+    private Consumption $consumption;
 
     /**
      * @return string
@@ -208,5 +209,25 @@ class Website
     public function setHadTrial(bool $hadTrial): void
     {
         $this->hadTrial = $hadTrial;
+    }
+
+    /**
+     * Get the value of consumption
+     */ 
+    public function getConsumption(): Consumption
+    {
+        return $this->consumption;
+    }
+
+    /**
+     * Set the value of consumption
+     *
+     * @return  self
+     */ 
+    public function setConsumption($consumption)
+    {
+        $this->consumption = $consumption;
+
+        return $this;
     }
 }
