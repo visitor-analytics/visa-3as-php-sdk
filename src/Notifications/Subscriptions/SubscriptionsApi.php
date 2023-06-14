@@ -11,12 +11,10 @@ class SubscriptionsApi
     const PATH = "/v2/3as/notifications/subscriptions";
 
     private VisaHttpClient $httpClient;
-    private SubscriptionHydrator $hydrator;
 
     public function __construct(VisaHttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->hydrator = new SubscriptionHydrator();
     }
 
     public  function upgrade(array $message): void
@@ -67,6 +65,10 @@ class SubscriptionsApi
             )
             ->key(
                 'trial',
+                Validator::boolType()
+            )
+            ->key(
+                'proRate',
                 Validator::boolType()
             );
 

@@ -215,7 +215,8 @@ $visa->website({INTP_WEBSITE_ID})->delete());
 $visa->subscriptions->upgrade([
     "intpWebsiteId" => {INTP_WEBSITE_ID},
     "packageId" => {PACKAGE_UUID},
-    "trial" => {true|false}
+    "trial" => {true|false},
+    "proRate" => {true|false}
 ])
 ```
 
