@@ -18,18 +18,29 @@ class WebsiteHydrator implements HydratorInterface
     public function hydrateObject(array $data): Website
     {
         $website = new Website();
-
+        
         $website->setId($data['id'] ?? null);
-        $website->setIntpWebsiteId($data['intpWebsiteId'] ?? null);
-        $website->setDomain($data['domain'] ?? null);
-        $website->setPartnerId($data['intpId'] ?? null);
-        $website->setCustomerId($data['intpCustomerId'] ?? null);
+        $website->setStatus($data["status"] ?? null);
+        $website->setIntpId($data["intpId"] ?? null);
+        $website->setIntpWebsiteId($data["intpWebsiteId"] ?? null);
+        $website->setIntpCustomerId($data["intpCustomerId"] ?? null);
         $website->setVisaTrackingCode($data['visaTrackingCode'] ?? null);
+
+        $website->setDomain($data['domain'] ?? null);
         $website->setPackageId($data['packageId'] ?? null);
         $website->setPackageName($data['packageName'] ?? null);
+        $website->setBillingInterval($data['billingInterval'] ?? null);
+        $website->setLastPackageChangeAt($data['lastPackageChangeAt'] ?? null);
+        $website->setPlannedDowngradePackageId($data['plannedDowngradePackageId'] ?? null);
+        $website->setPlannedDowngradePackageName($data['plannedDowngradePackageName'] ?? null);
+        $website->setPlannedDowngradePackageInterval($data['plannedDowngradePackageInterval'] ?? null);
+
         $website->setInTrial($data['inTrial'] ?? false);
         $website->setHadTrial($data['hadTrial'] ?? false);
+
         $website->setCreatedAt($data['createdAt'] ?? null);
+        $website->setExpiresAt($data['expiresAt'] ?? null);
+        $website->setStpResetAt($data['stpResetAt'] ?? null);
 
         if (!isset($data['consumption'])) {
             $website->setConsumption(null);
