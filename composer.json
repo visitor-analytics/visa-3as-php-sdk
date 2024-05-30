@@ -10,7 +10,7 @@
     "authors": [
         {
             "name": "Oliviu Sivu",
-            "email": "os@visitor-analytics.io"
+            "email": "oliviu.sivu@twipla.com"
         }
     ],
     "minimum-stability": "stable",
@@ -35,5 +35,5 @@
         "release:minor": "conventional-changelog --minor --commit",
         "release:major": "conventional-changelog --major --commit"
     },
-    "version": "1.3.3"
+    "version": "1.3.4"
 }

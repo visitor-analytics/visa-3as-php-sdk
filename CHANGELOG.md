@@ -4,6 +4,11 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [1.3.4](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v1.3.3...v1.3.4) (2024-05-30)
+
+
+---
+
 ## [1.3.3](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v1.3.2...v1.3.3) (2023-10-31)
 
 
