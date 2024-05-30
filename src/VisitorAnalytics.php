@@ -62,6 +62,7 @@ class VisitorAnalytics
             ->key('env', Validator::oneOf(
                 Validator::equals('dev'),
                 Validator::equals('stage'),
+                Validator::equals('production'),
             ));
 
         try {
