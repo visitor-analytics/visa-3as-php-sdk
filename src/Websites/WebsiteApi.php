@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Visa\Websites;
 
-use Respect\Validation\Exceptions\NestedValidationException;
-use Respect\Validation\Validator;
 use Visa\VisaHttpClient;
 
 class WebsiteApi
@@ -41,11 +39,7 @@ class WebsiteApi
             throw new \Exception('Website external id not set.');
         }
 
-        try {
-            $this->visaHttpClient->post('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains', ['domain' => $domain]);
-        } catch (NestedValidationException $exception) {
-            throw new \Exception(json_encode($exception->getMessages()));
-        }
+        $this->visaHttpClient->post('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains', ['domain' => $domain]);
     }
 
     public function deleteWhitelistedDomain(string $domain): void
@@ -54,11 +48,7 @@ class WebsiteApi
             throw new \Exception('Website external id not set.');
         }
 
-        try {
-            $this->visaHttpClient->delete('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains/' . urlencode($domain));
-        } catch (NestedValidationException $exception) {
-            throw new \Exception(json_encode($exception->getMessages()));
-        }
+        $this->visaHttpClient->delete('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains/' . urlencode($domain));
     }
 
     /**
@@ -71,11 +61,8 @@ class WebsiteApi
             throw new \Exception('Website external id not set.');
         }
 
-        try {
-            $response = $this->visaHttpClient->get('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains');
-            return $response->getPayload();
-        } catch (NestedValidationException $exception) {
-            throw new \Exception(json_encode($exception->getMessages()));
-        }
+        $response = $this->visaHttpClient->get('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains');
+
+        return $response->getPayload();
     }
 }
