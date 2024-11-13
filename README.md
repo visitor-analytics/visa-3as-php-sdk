@@ -207,6 +207,24 @@ $visa->websites->create([
 $visa->website({INTP_WEBSITE_ID})->delete());
 ```
 
+#### Add a whitelisted domain
+
+```php
+visa->website({INTP_WEBSITE_ID})->addWhitelistedDomain(STRING);
+```
+
+#### Delete a whitelisted domain
+
+```php
+visa->website({INTP_WEBSITE_ID})->deleteWhitelistedDomain(STRING);
+```
+
+#### List all whitelisted domains
+
+```php
+visa->website({INTP_WEBSITE_ID})->listWhitelistedDomains();
+```
+
 ### API for managing subscription state
 
 #### Upgrade - immediately applies a higher stp count package to the subscription
