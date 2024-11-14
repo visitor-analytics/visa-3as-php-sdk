@@ -25,6 +25,7 @@ class WebsiteHydrator implements HydratorInterface
         $website->setIntpWebsiteId($data["intpWebsiteId"]);
         $website->setIntpCustomerId($data["intpCustomerId"]);
         $website->setVisaTrackingCode($data['visaTrackingCode'] ?? null);
+        $website->setVisaMaxPrivacyTrackingCode($data['visaMaxPrivacyModeTrackingCode'] ?? null);
 
         $website->setDomain($data['domain']);
         $website->setPackageId($data['packageId']);
