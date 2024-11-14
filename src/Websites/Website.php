@@ -11,7 +11,8 @@ class Website
     private string $intpId;
     private string $intpWebsiteId;
     private string $intpCustomerId;
-    private string $visaTrackingCode;
+    private ?string $visaTrackingCode;
+    private ?string $visaMaxPrivacyModeTrackingCode;
 
     private string $domain;
     private string $packageId;
@@ -66,17 +67,33 @@ class Website
     /**
      * @return string
      */
-    public function getVisaTrackingCode(): string
+    public function getVisaTrackingCode(): ?string
     {
         return $this->visaTrackingCode;
     }
 
     /**
-     * @param string $visaTrackingCode
+     * @param string|null $visaTrackingCode
      */
-    public function setVisaTrackingCode(string $visaTrackingCode): void
+    public function setVisaTrackingCode(?string $visaTrackingCode): void
     {
         $this->visaTrackingCode = $visaTrackingCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVisaMaxPrivacyTrackingCode(): ?string
+    {
+        return $this->visaMaxPrivacyModeTrackingCode;
+    }
+
+    /**
+     * @param string|null $visaTrackingCode
+     */
+    public function setVisaMaxPrivacyTrackingCode(?string $visaTrackingCode): void
+    {
+        $this->visaMaxPrivacyModeTrackingCode = $visaTrackingCode;
     }
 
     /**
