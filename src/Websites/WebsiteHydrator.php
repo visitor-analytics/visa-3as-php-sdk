@@ -19,17 +19,17 @@ class WebsiteHydrator implements HydratorInterface
     {
         $website = new Website();
         
-        $website->setId($data['id'] ?? null);
-        $website->setStatus($data["status"] ?? null);
-        $website->setIntpId($data["intpId"] ?? null);
-        $website->setIntpWebsiteId($data["intpWebsiteId"] ?? null);
-        $website->setIntpCustomerId($data["intpCustomerId"] ?? null);
+        $website->setId($data['id']);
+        $website->setStatus($data["status"]);
+        $website->setIntpId($data["intpId"]);
+        $website->setIntpWebsiteId($data["intpWebsiteId"]);
+        $website->setIntpCustomerId($data["intpCustomerId"]);
         $website->setVisaTrackingCode($data['visaTrackingCode'] ?? null);
 
-        $website->setDomain($data['domain'] ?? null);
-        $website->setPackageId($data['packageId'] ?? null);
-        $website->setPackageName($data['packageName'] ?? null);
-        $website->setBillingInterval($data['billingInterval'] ?? null);
+        $website->setDomain($data['domain']);
+        $website->setPackageId($data['packageId']);
+        $website->setPackageName($data['packageName']);
+        $website->setBillingInterval($data['billingInterval']);
         $website->setLastPackageChangeAt($data['lastPackageChangeAt'] ?? null);
         $website->setPlannedDowngradePackageId($data['plannedDowngradePackageId'] ?? null);
         $website->setPlannedDowngradePackageName($data['plannedDowngradePackageName'] ?? null);
@@ -38,9 +38,9 @@ class WebsiteHydrator implements HydratorInterface
         $website->setInTrial($data['inTrial'] ?? false);
         $website->setHadTrial($data['hadTrial'] ?? false);
 
-        $website->setCreatedAt($data['createdAt'] ?? null);
-        $website->setExpiresAt($data['expiresAt'] ?? null);
-        $website->setStpResetAt($data['stpResetAt'] ?? null);
+        $website->setCreatedAt($data['createdAt']);
+        $website->setExpiresAt($data['expiresAt']);
+        $website->setStpResetAt($data['stpResetAt']);
 
         if (!isset($data['consumption'])) {
             $website->setConsumption(null);

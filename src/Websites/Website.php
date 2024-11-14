@@ -11,7 +11,7 @@ class Website
     private string $intpId;
     private string $intpWebsiteId;
     private string $intpCustomerId;
-    private string $visaTrackingCode;
+    private ?string $visaTrackingCode;
 
     private string $domain;
     private string $packageId;
@@ -66,15 +66,15 @@ class Website
     /**
      * @return string
      */
-    public function getVisaTrackingCode(): string
+    public function getVisaTrackingCode(): ?string
     {
         return $this->visaTrackingCode;
     }
 
     /**
-     * @param string $visaTrackingCode
+     * @param string|null $visaTrackingCode
      */
-    public function setVisaTrackingCode(string $visaTrackingCode): void
+    public function setVisaTrackingCode($visaTrackingCode): void
     {
         $this->visaTrackingCode = $visaTrackingCode;
     }
