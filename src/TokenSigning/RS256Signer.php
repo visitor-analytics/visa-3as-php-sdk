@@ -17,7 +17,7 @@ class RS256Signer implements SignerInterface
         $this->config = Configuration::forAsymmetricSigner(
             new Sha256(),
             InMemory::plainText($privateKey),
-            InMemory::empty()
+            InMemory::plainText("-")
         );
     }
 
