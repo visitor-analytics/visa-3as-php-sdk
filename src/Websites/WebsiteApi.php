@@ -48,7 +48,7 @@ class WebsiteApi
             throw new \Exception('Website external id not set.');
         }
 
-        $this->visaHttpClient->delete('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains/' . urlencode($domain));
+        $this->visaHttpClient->patch('/v2/3as/websites/' . $this->intpWebsiteId . '/whitelisted-domains', ['domain' => $domain]);
     }
 
     /**
