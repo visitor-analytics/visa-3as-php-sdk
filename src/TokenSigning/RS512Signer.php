@@ -17,7 +17,7 @@ class RS512Signer implements SignerInterface
         $this->config = Configuration::forAsymmetricSigner(
             new Sha512(),
             InMemory::plainText($privateKey),
-            InMemory::empty()
+            InMemory::plainText("-")
         );
     }
 
