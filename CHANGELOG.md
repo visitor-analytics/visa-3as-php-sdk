@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [2.1.0](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v2.0.1...v2.1.0) (2025-04-22)
+
+### Features
+
+* Make packageId optional for website/intpc creation ([4655e1](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/4655e19fc89d59a6d69f1c83633174285fe04147))
+
+### Bug Fixes
+
+* Remove version field from composer.json ([e152f9](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/e152f952fb4c59dfbcd58dd28b072850bbd6dbeb))
+
+
+---
+
 ## [2.0.1](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v1.3.6...v2.0.1) (2024-11-15)
 
 
