@@ -10,7 +10,7 @@ use Visa\Utils\IFrameUtils;
 use Visa\VisaHttpClient;
 use Visa\Websites\WebsiteHydrator;
 
-class CustomerApi
+class IntpcApi
 {
     private string $intpCustomerId;
 
@@ -28,7 +28,7 @@ class CustomerApi
         $this->customerHydrator = new CustomerHydrator();
     }
 
-    public function setIntpCustomerId(string $intpCustomerId): CustomerApi
+    public function setIntpcId(string $intpCustomerId): IntpcApi
     {
         $this->intpCustomerId = $intpCustomerId;
 
@@ -53,7 +53,7 @@ class CustomerApi
         ];
     }
 
-    public function delete(): Customer
+    public function delete(): Intpc
     {
         $response = $this->httpClient->delete('/v2/3as/customers/' . $this->intpCustomerId);
 

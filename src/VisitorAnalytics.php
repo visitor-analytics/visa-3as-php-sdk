@@ -6,27 +6,29 @@ namespace Visa;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
-use Visa\Customers\CustomerApi;
-use Visa\Customers\CustomersApi;
+use Visa\Customers\IntpcApi;
+use Visa\Customers\IntpcsApi;
 use Visa\Packages\PackageApi;
 use Visa\Packages\PackagesApi;
 use Visa\Utils\AuthUtils;
 use Visa\Utils\IFrameUtils;
 use Visa\Websites\WebsiteApi;
 use Visa\Websites\WebsitesApi;
-use Visa\Notifications\Subscriptions\SubscriptionsApi;
+use Visa\Subscriptions\IntpcSubscriptionsApi;
+use Visa\Subscriptions\WebsiteSubscriptionsApi;
 
 class VisitorAnalytics
 {
     public AuthUtils $auth;
     public PackagesApi $packages;
     public WebsitesApi $websites;
-    public CustomersApi $customers;
-    public SubscriptionsApi $subscriptions;
-
-    private PackageApi $packageApi;
-    private WebsiteApi $websiteApi;
-    private CustomerApi $customerApi;
+    public IntpcsApi $intpcs;
+    public WebsiteSubscriptionsApi $websiteSubscription;
+    public IntpcSubscriptionsApi $intpcSubscription;
+    
+    private PackageApi $package;
+    private WebsiteApi $website;
+    private IntpcApi $intpc;
     private VisaHttpClient $httpClient;
 
     /**
@@ -44,13 +46,14 @@ class VisitorAnalytics
             'accessToken' => $this->auth->generateINTPAccessToken(),
         ]);
 
-        $this->packageApi = new PackageApi($this->httpClient);
+        $this->package = new PackageApi($this->httpClient);
         $this->packages = new PackagesApi($this->httpClient);
-        $this->customerApi = new CustomerApi($this->httpClient, new IFrameUtils($this->auth, $params['env']));
-        $this->customers = new CustomersApi($this->httpClient);
-        $this->websiteApi = new WebsiteApi($this->httpClient);
+        $this->intpc = new IntpcApi($this->httpClient, new IFrameUtils($this->auth, $params['env']));
+        $this->intpcs = new IntpcsApi($this->httpClient);
+        $this->website = new WebsiteApi($this->httpClient);
         $this->websites = new WebsitesApi($this->httpClient);
-        $this->subscriptions = new SubscriptionsApi($this->httpClient);
+        $this->websiteSubscription = new WebsiteSubscriptionsApi($this->httpClient);
+        $this->intpcSubscription = new IntpcSubscriptionsApi($this->httpClient);
     }
 
     private function validateSetup(array $params): void
@@ -64,7 +67,7 @@ class VisitorAnalytics
                 Validator::equals('stage'),
                 Validator::equals('production'),
             ));
-
+        
         try {
             $sdkSetupValidationSchema->assert($params);
         } catch (NestedValidationException $exception) {
@@ -74,16 +77,16 @@ class VisitorAnalytics
 
     public function package($id): PackageApi
     {
-        return $this->packageApi->setPackageId($id);
+        return $this->package->setPackageId($id);
     }
 
-    public function customer($intpCustomerId): CustomerApi
+    public function customer($intpcId): IntpcApi
     {
-        return $this->customerApi->setIntpCustomerId($intpCustomerId);
+        return $this->intpc->setIntpcId($intpcId);
     }
 
     public function website($intpWebsiteId): WebsiteApi
     {
-        return $this->websiteApi->setIntpWebsiteId($intpWebsiteId);
+        return $this->website->setIntpWebsiteId($intpWebsiteId);
     }
 }

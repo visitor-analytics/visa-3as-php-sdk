@@ -2,8 +2,6 @@
 
 namespace Visa\Packages;
 
-use Respect\Validation\Exceptions\NestedValidationException;
-use Respect\Validation\Validator;
 use Visa\VisaHttpClient;
 
 class PackageApi
@@ -28,17 +26,8 @@ class PackageApi
 
     public function update(array $package): Package
     {
-        try {
-            $updatePackageValidationSchema = Validator::arrayType()
-                ->key('name', Validator::stringType());
+        $response = $this->httpClient->patch('/v2/3as/packages/' . $this->packageId, $package);
 
-            $updatePackageValidationSchema->assert($package);
-
-            $response = $this->httpClient->patch('/v2/3as/packages/' . $this->packageId, $package);
-
-            return $this->hydrator->hydrateObject($response->getPayload());
-        } catch (NestedValidationException $exception) {
-            throw new \Exception(json_encode($exception->getMessages()));
-        }
+        return $this->hydrator->hydrateObject($response->getPayload());
     }
 }

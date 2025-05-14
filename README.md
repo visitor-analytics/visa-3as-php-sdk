@@ -44,7 +44,7 @@ $visa = new VisitorAnalytics([
    The company that is integrating the analytics as a service solution (3AS)
 - **STPs (Server Touchpoints)**\
    Credits used to measure data usage for a given website
-- **Customer (INTPC integration partner customer)**\
+- **Intpc (INTPC integration partner customer)**\
    One user of the INTP, can have many websites
 - **Website**\
    The website where data will be tracked. It has a subscription with a package with a certain limit of STPs.
@@ -57,11 +57,11 @@ $visa = new VisitorAnalytics([
 
 Most endpoints that deal with customers or websites support some form of an ID which can be provided and then used for all following requests.
 
-For example creating a new customer with a website requires an `intpCustomerId` and an `intpWebsiteId`. These must be provided by the INTP and are intended to make integrations easier because there is no need to save any external IDs. Then when getting data about a customer the request is done using the same `intpCustomerId` provided on creation.
+For example creating a new customer with a website requires an `intpCustomerId`|`intpcId` and an `intpWebsiteId`. These must be provided by the INTP and are intended to make integrations easier because there is no need to save any external IDs. Then when getting data about a customer the request is done using the same `intpCustomerId` provided on creation.
 
 **Example implementation flow**
 
-1. Create a new customer with a website
+1. Create a new intpc with a website
 1. Inject the resulting tracking code in the website's HTML
 1. Use the SDK's [generate iframe url](#generate-the-visitoranalytics-dashboard-iframe-url) method to create an url
 1. Show an iframe to the user with the url created previously
@@ -71,22 +71,37 @@ For example creating a new customer with a website requires an `intpCustomerId` 
 
 ## Available APIs
 
-- [Customers](#customers-api)
-- [Customer](#customer-api)
+- [INTPCs](#customers-api)
+- [INTPC](#customer-api)
 - [Package](#package-api)
 - [Packages](#packages-api)
 - [Website](#website-api)
 - [Websites](#websites-api)
 - [Utils](#utils-api)
 
-### Customers API
+### INTPc API
 
 Integration partners (INTP) are able to get data about their customers (INTPc).
 
-#### Register a new customer
+#### Register and start an INTPc level subscription. This will allow subsequently added websites to consume from the same `touchpoint` pool provided by the `package` used during setup.
 
 ```php
-$visa->customers->create([
+$visa->intpcs->create([
+        'intpCustomerId' => {INTP_CUSTOMER_ID},
+        'email' => {INTP_CUSTOMER_EMAIL},
+        'packageId' => {PACKAGE_UUID},
+        'billingDate' => {ISO_DATE_STRING} (optional, defaults to current time)
+        'website' => [
+            'intpWebsiteId' => {INTP_WEBSITE_ID},
+            'domain' => {INTP_WEBSITE_DOMAIN_URI},
+        ]
+]);
+```
+
+#### Register an INTPc and start a website level subscription. Each added website will have its own subscription.
+
+```php
+$visa->intpcs->create([
         'intpCustomerId' => {INTP_CUSTOMER_ID},
         'email' => {INTP_CUSTOMER_EMAIL},
         'website' => [
@@ -101,27 +116,27 @@ $visa->customers->create([
 #### List all available customers
 
 ```php
-$visa->customers->list();
+$visa->intpcs->list();
 ```
 
-#### Get a single customer by its INTP given id
+#### Get a single intpc by its INTP given id
 
 ```php
-$visa->customers->getByIntpCustomerId({INTP_CUSTOMER_ID});
+$visa->intpcs->getByIntpCustomerId({INTP_CUSTOMER_ID});
 ```
 
-### Customer API
+### INTPC API
 
 #### List all websites belonging to an INTP Customer
 
 ```php
-$visa->customer({INTP_CUSTOMER_ID})->listWebsites();
+$visa->intpc({INTP_CUSTOMER_ID})->listWebsites();
 ```
 
 #### Delete a Customer belonging to an INTP
 
 ```php
-$visa->customer({INTP_CUSTOMER_ID})->delete();
+$visa->intpc({INTP_CUSTOMER_ID})->delete();
 ```
 
 #### Generate the VisitorAnalytics Dashboard IFrame Url
@@ -130,7 +145,7 @@ This is one of the essential methods to use when using the iframe appoach 3AS.
 It creates an URL for a given customer and website combination that shows the TWIPLA dashboard in the theme configured by the INTP.
 
 ```php
-$visa->customer({INTP_CUSTOMER_ID})->generateIFrameDashboardUrl({INTP_WEBSITE_ID});
+$visa->intpc({INTP_CUSTOMER_ID})->generateIFrameDashboardUrl({INTP_WEBSITE_ID});
 ```
 
 ### Packages API
@@ -185,15 +200,52 @@ $visa->websites->list();
 $visa->websites->getByIntpWebsiteId({INTP_WEBSITE_ID});
 ```
 
-#### Create a website
+#### Create a website with its own subscription and attach it to an existing INTPc
 
 ```php
 $visa->websites->create([
-    'intpWebsiteId' => {INTP_WEBSITE_ID},
-    'intpCustomerId' => {INTP_CUSTOMER_ID},
-    'domain' => {INTP_WEBSITE_DOMAIN},
-    'packageId' => {PACKAGE_UUID},
-    'billingDate' => {ISO_DATE_STRING} (optional, defaults to current time)
+    'website' => [
+        'id' => {INTP_WEBSITE_ID|STRING}},
+        'domain' => {INTP_WEBSITE_DOMAIN},
+        'package' => [
+            'id' => {UUID}
+            'billingDate' => {ISO_DATE_STRING} (optional, defaults to current time)
+        ]
+    ],
+    'intpc' => [
+        'id' => {INTP_CUSTOMER_ID|STRING}
+    ],
+]);
+```
+
+#### Create a website and attach it to an existing INTPc subscription. This website, alongside other pre-existing website will consume `touchpoints` from the same pool.
+
+```php
+$visa->websites->create([
+    'website' => [
+        'id' => {INTP_WEBSITE_ID|STRING}},
+        'domain' => {INTP_WEBSITE_DOMAIN},
+    ],
+    'intpc' => [
+        'id' => {INTP_CUSTOMER_ID|STRING}
+    ],
+]);
+```
+
+#### Create a website with its own `30 day, unlimited free trial` subscription and attach it to an INTPc. After the 30 day free trial ends, the subscription will be downgraded to the `free` package.
+
+```php
+$visa->websites->create([
+    'website' => [
+        'id' => {INTP_WEBSITE_ID|STRING}},
+        'domain' => {INTP_WEBSITE_DOMAIN},
+    ],
+    'intpc' => [
+        'id' => {INTP_CUSTOMER_ID|STRING}
+    ],
+    'opts' => [
+        'uft' => true
+    ]
 ]);
 ```
 
@@ -225,12 +277,12 @@ visa->website({INTP_WEBSITE_ID})->deleteWhitelistedDomain(STRING);
 visa->website({INTP_WEBSITE_ID})->listWhitelistedDomains();
 ```
 
-### API for managing subscription state
+### API for managing a subscription of type `website`
 
 #### Upgrade - immediately applies a higher stp count package to the subscription
 
 ```php
-$visa->subscriptions->upgrade([
+$visa->websiteSubscription->upgrade([
     "intpWebsiteId" => {INTP_WEBSITE_ID},
     "packageId" => {PACKAGE_UUID},
     "trial" => {true|false},
@@ -241,7 +293,7 @@ $visa->subscriptions->upgrade([
 #### Downgrade - auto-renew the subscription at the end of the current billing interval to a new lower stp count package
 
 ```php
-$visa->subscriptions->downgrade([
+$visa->websiteSubscription->downgrade([
     "intpWebsiteId" => {INTP_WEBSITE_ID},
     "packageId" => {PACKAGE_UUID}
 ])
@@ -250,7 +302,7 @@ $visa->subscriptions->downgrade([
 #### Cancel - disable the subscription auto-renewal at the end of the current billing interval
 
 ```php
-$visa->subscriptions->cancel([
+$visa->websiteSubscription->cancel([
     "intpWebsiteId" => {INTP_WEBSITE_ID},
 ])
 ```
@@ -258,16 +310,62 @@ $visa->subscriptions->cancel([
 #### Resume - re-enable the subscription auto-renewal at the end of the current billing interval
 
 ```php
-$visa->subscriptions->resume([
+$visa->websiteSubscription->resume([
     "intpWebsiteId" => {INTP_WEBSITE_ID},
 ])
 ```
 
-#### Deactivate - immediately disables the subscription, reversible by an upgrade
+#### Deactivate - immediately disables the subscription
 
 ```php
-$visa->subscriptions->deactivate([
+$visa->websiteSubscription->deactivate([
     "intpWebsiteId" => {INTP_WEBSITE_ID},
+])
+```
+
+### API for managing a subscription of type `intpc`
+
+#### Upgrade - immediately applies a higher stp count package to the subscription
+
+```php
+$visa->intpcSubscription->upgrade([
+    "intpcId" => {INTP_WEBSITE_ID},
+    "packageId" => {PACKAGE_UUID},
+    "trial" => {true|false},
+    "proRate" => {true|false}
+])
+```
+
+#### Downgrade - auto-renew the subscription at the end of the current billing interval to a new lower stp count package
+
+```php
+$visa->intpcSubscription->downgrade([
+    "intpcId" => {INTP_WEBSITE_ID},
+    "packageId" => {PACKAGE_UUID}
+])
+```
+
+#### Cancel - disable the subscription auto-renewal at the end of the current billing interval
+
+```php
+$visa->intpcSubscription->cancel([
+    "intpcId" => {INTP_WEBSITE_ID},
+])
+```
+
+#### Resume - re-enable the subscription auto-renewal at the end of the current billing interval
+
+```php
+$visa->intpcSubscription->resume([
+    "intpcId" => {INTP_WEBSITE_ID},
+])
+```
+
+#### Deactivate - immediately disables the subscription
+
+```php
+$visa->intpcSubscription->deactivate([
+    "intpcId" => {INTP_WEBSITE_ID},
 ])
 ```
 
@@ -294,8 +392,7 @@ The resulting URL can be further enhanced with query parameters:
 1. `allowUpgrade=true` - Show upgrade CTAs
 
 Upgrade buttons will be added to the Dashboard for all features that require a certain minimum package.
-Once the upgrade button is clicked, the iframe posts a message to the parent frame, containing the following payload: 
-
+Once the upgrade button is clicked, the iframe posts a message to the parent frame, containing the following payload:
 
 ```javascript
 {

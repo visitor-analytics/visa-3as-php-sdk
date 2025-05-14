@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Visa\Customers;
 
-class Customer
+class Intpc
 {
     private string $id;
     private string $intpCustomerId;
