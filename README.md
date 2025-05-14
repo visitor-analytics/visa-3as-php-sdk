@@ -59,7 +59,27 @@ Most endpoints that deal with customers or websites support some form of an ID w
 
 For example creating a new customer with a website requires an `intpCustomerId`|`intpcId` and an `intpWebsiteId`. These must be provided by the INTP and are intended to make integrations easier because there is no need to save any external IDs. Then when getting data about a customer the request is done using the same `intpCustomerId` provided on creation.
 
-**Example implementation flow**
+### Subscription Types
+
+There are currently **two types of subscription** available:
+
+#### 1. `Website` Subscription
+
+- Applies to a **single website**.
+- Created using an **`intp` package**, which defines the subscription plan.
+- Can be billed **monthly** or **yearly**.
+- Each `website` subscription is tied to an **`intpc`**, which is the entity responsible for creating the website.
+
+#### 2. `Intpc` Subscription
+
+- Covers **one or more websites** under a single subscription.
+- Created using an **`intp` package**, which defines the subscription plan.
+- Can be billed **monthly** or **yearly**.
+- The **touchpoint limit** defined by the package is **shared across all associated websites**.
+- The `intpc` can **monitor individual usage** per website, providing detailed insights into how each site consumes touchpoints.
+- Ideal for managing multiple websites with a **centralized billing**.
+
+### Example implementation flow
 
 1. Create a new intpc with a website
 1. Inject the resulting tracking code in the website's HTML
