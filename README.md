@@ -91,15 +91,15 @@ There are currently **two types of subscription** available:
 
 ## Available APIs
 
-- [INTPCs](#customers-api)
-- [INTPC](#customer-api)
+- [INTPCs](#intpcs-api)
+- [INTPC](#intpc-api)
 - [Package](#package-api)
 - [Packages](#packages-api)
 - [Website](#website-api)
 - [Websites](#websites-api)
 - [Utils](#utils-api)
 
-### INTPc API
+### INTPCs API
 
 Integration partners (INTP) are able to get data about their customers (INTPc).
 
@@ -225,10 +225,10 @@ $visa->websites->getByIntpWebsiteId({INTP_WEBSITE_ID});
 ```php
 $visa->websites->create([
     'website' => [
-        'id' => {INTP_WEBSITE_ID|STRING}},
+        'id' => {INTP_WEBSITE_ID|STRING},
         'domain' => {INTP_WEBSITE_DOMAIN},
         'package' => [
-            'id' => {UUID}
+            'id' => {UUID},
             'billingDate' => {ISO_DATE_STRING} (optional, defaults to current time)
         ]
     ],
@@ -243,7 +243,7 @@ $visa->websites->create([
 ```php
 $visa->websites->create([
     'website' => [
-        'id' => {INTP_WEBSITE_ID|STRING}},
+        'id' => {INTP_WEBSITE_ID|STRING},
         'domain' => {INTP_WEBSITE_DOMAIN},
     ],
     'intpc' => [
@@ -257,7 +257,7 @@ $visa->websites->create([
 ```php
 $visa->websites->create([
     'website' => [
-        'id' => {INTP_WEBSITE_ID|STRING}},
+        'id' => {INTP_WEBSITE_ID|STRING},
         'domain' => {INTP_WEBSITE_DOMAIN},
     ],
     'intpc' => [
@@ -349,7 +349,7 @@ $visa->websiteSubscription->deactivate([
 
 ```php
 $visa->intpcSubscription->upgrade([
-    "intpcId" => {INTP_WEBSITE_ID},
+    "intpcId" => {INTP_CUSTOMER_ID},
     "packageId" => {PACKAGE_UUID},
     "trial" => {true|false},
     "proRate" => {true|false}
@@ -360,7 +360,7 @@ $visa->intpcSubscription->upgrade([
 
 ```php
 $visa->intpcSubscription->downgrade([
-    "intpcId" => {INTP_WEBSITE_ID},
+    "intpcId" => {INTP_CUSTOMER_ID},
     "packageId" => {PACKAGE_UUID}
 ])
 ```
@@ -369,7 +369,7 @@ $visa->intpcSubscription->downgrade([
 
 ```php
 $visa->intpcSubscription->cancel([
-    "intpcId" => {INTP_WEBSITE_ID},
+    "intpcId" => {INTP_CUSTOMER_ID},
 ])
 ```
 
@@ -377,7 +377,7 @@ $visa->intpcSubscription->cancel([
 
 ```php
 $visa->intpcSubscription->resume([
-    "intpcId" => {INTP_WEBSITE_ID},
+    "intpcId" => {INTP_CUSTOMER_ID},
 ])
 ```
 
@@ -385,7 +385,7 @@ $visa->intpcSubscription->resume([
 
 ```php
 $visa->intpcSubscription->deactivate([
-    "intpcId" => {INTP_WEBSITE_ID},
+    "intpcId" => {INTP_CUSTOMER_ID},
 ])
 ```
 
