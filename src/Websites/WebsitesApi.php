@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Visa\Websites;
 
-use Respect\Validation\Exceptions\NestedValidationException;
-use Respect\Validation\Validator;
 use Visa\HydratorInterface;
 use Visa\VisaHttpClient;
 
@@ -40,21 +38,8 @@ class WebsitesApi
 
     public function create(array $website): Website
     {
-        $newWebsiteValidationSchema = Validator::arrayType()
-            ->key('intpWebsiteId', Validator::stringType())
-            ->key('intpCustomerId', Validator::stringType())
-            ->key('domain', Validator::stringType())
-            ->key('packageId', Validator::optional(Validator::stringType()->uuid(4)))
-            ->key('billingDate', Validator::optional(Validator::stringType()));
+        $response = $this->httpClient->post('/v3/3as/websites', $website);
 
-        try {
-            $newWebsiteValidationSchema->assert($website);
-
-            $response = $this->httpClient->post('/v2/3as/websites', $website);
-
-            return $this->websiteHydrator->hydrateObject($response->getPayload());
-        } catch (NestedValidationException $exception) {
-            throw new \Exception(json_encode($exception->getMessages()));
-        }
+        return $this->websiteHydrator->hydrateObject($response->getPayload());
     }
 }

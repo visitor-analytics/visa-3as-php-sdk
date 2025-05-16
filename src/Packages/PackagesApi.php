@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Visa\Packages;
 
 use GuzzleHttp\Exception\GuzzleException;
-use Respect\Validation\Exceptions\NestedValidationException;
-use Respect\Validation\Validator;
 use Visa\VisaHttpClient;
 
 class PackagesApi
@@ -27,38 +25,10 @@ class PackagesApi
      * @throws \Exception
      */
     public function create(array $package): Package
-    {
-        try {
-            $newPackageValidationSchema = Validator::arrayType()
-                ->key('name', Validator::stringType())
-                ->key('touchpoints', Validator::intVal()->min(1))
-                ->key('price', Validator::floatVal()->min(0))
-                ->key('currency', Validator::oneOf(
-                    Validator::equals('EUR'),
-                    Validator::equals('USD'),
-                    Validator::equals('RON')
-                ))
-                ->key('period', Validator::oneOf(
-                    Validator::equals('monthly'),
-                    Validator::equals('yearly')
-                )
-                );
+    {   
+        $response = $this->httpClient->post('/v2/3as/packages', $package);
 
-            $newPackageValidationSchema->assert($package);
-
-            $response = $this->httpClient->post('/v2/3as/packages', $package);
-
-            return $this->hydrator->hydrateObject($response->getPayload());
-        } catch (NestedValidationException $exception) {
-            throw new \Exception(
-                json_encode(
-                    $exception->getMessages([
-                        'period' => 'period must be one of "yearly" or "monthly"',
-                        'currency' => 'currency must be one of "EUR", "USD" or "RON"'
-                    ])
-                )
-            );
-        }
+        return $this->hydrator->hydrateObject($response->getPayload());
     }
 
     /**

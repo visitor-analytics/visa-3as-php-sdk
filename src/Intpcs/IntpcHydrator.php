@@ -16,15 +16,15 @@ class CustomerHydrator implements HydratorInterface
         $this->hydrator = new ClassMethodsHydrator();
     }
 
-    public function hydrateObject(array $data): Customer
+    public function hydrateObject(array $data): Intpc
     {
-        return $this->hydrator->hydrate($data, new Customer());
+        return $this->hydrator->hydrate($data, new Intpc());
     }
 
     public function hydrateObjectArray(array $dataArray): array
     {
         return array_map(function (array $data) {
-            return $this->hydrator->hydrate($data, new Customer());
+            return $this->hydrator->hydrate($data, new Intpc());
         }, $dataArray);
     }
 }
