@@ -4,6 +4,18 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [3.0.3](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v3.0.2...v3.0.3) (2025-05-16)
+
+### Bug Fixes
+
+
+##### VISA-12767
+
+* Refactor website & intpc subscription managers into own files ([f21ff0](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/f21ff019027074d7466a9777cdb09da44a628553))
+
+
+---
+
 ## [3.0.2](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v3.0.1...v3.0.2) (2025-05-16)
 
 ### Bug Fixes
