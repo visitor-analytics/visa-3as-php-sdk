@@ -17,7 +17,7 @@ class IntpcApi
     private IFrameUtils $iframe;
     private VisaHttpClient $httpClient;
     private HydratorInterface $websiteHydrator;
-    private HydratorInterface $customerHydrator;
+    private HydratorInterface $intpcHydrator;
 
     public function __construct(VisaHttpClient $httpClient, IFrameUtils $iframe)
     {
@@ -25,7 +25,7 @@ class IntpcApi
         $this->httpClient = $httpClient;
 
         $this->websiteHydrator = new WebsiteHydrator();
-        $this->customerHydrator = new CustomerHydrator();
+        $this->intpcHydrator = new IntpcHydrator();
     }
 
     public function setIntpcId(string $intpCustomerId): IntpcApi
@@ -57,7 +57,7 @@ class IntpcApi
     {
         $response = $this->httpClient->delete('/v2/3as/customers/' . $this->intpCustomerId);
 
-        return $this->customerHydrator->hydrateObject($response->getPayload());
+        return $this->intpcHydrator->hydrateObject($response->getPayload());
     }
 
     /**

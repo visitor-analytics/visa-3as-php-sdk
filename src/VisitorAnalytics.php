@@ -57,7 +57,7 @@ class VisitorAnalytics
         return $this->package->setPackageId($id);
     }
 
-    public function customer($intpcId): IntpcApi
+    public function intpc($intpcId): IntpcApi
     {
         return $this->intpc->setIntpcId($intpcId);
     }
