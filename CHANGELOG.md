@@ -4,6 +4,19 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [3.0.0](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v2.1.0...v3.0.0) (2025-05-16)
+
+### Bug Fixes
+
+
+##### VISA-12767
+
+* Add support for v3 endpoints ([3f2b44](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/3f2b448a05ff6e41752c274b7f0a5ace34c89d8a))
+* Code review remarks ([4c4e52](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/4c4e520dd27078722f8d8807ea023b4db977559f))
+* Document subscription types ([dbcb68](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/dbcb683f65764391b028872c50db200b0b3b0d45))
+
+
+---
 
 ## [3.0.0](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v2.1.0...v3.0.0) (2025-05)
 
