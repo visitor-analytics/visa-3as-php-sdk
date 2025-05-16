@@ -4,6 +4,18 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [3.0.1](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v3.0.0...v3.0.1) (2025-05-16)
+
+### Bug Fixes
+
+
+##### VISA-12767
+
+* Fix namespace for intpcs ([84ca27](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/84ca2761920f969c72981fd062bbf83602c243e7))
+
+
+---
+
 ## [3.0.0](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v2.1.0...v3.0.0) (2025-05-16)
 
 ### Bug Fixes
