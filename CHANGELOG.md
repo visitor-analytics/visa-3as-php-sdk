@@ -4,6 +4,18 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [3.0.2](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v3.0.1...v3.0.2) (2025-05-16)
+
+### Bug Fixes
+
+
+##### VISA-12767
+
+* Fix namespace for intpc hydrator ([cc6aa4](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/cc6aa4a8a829197af4c1b5428ca8617f92ea8990))
+
+
+---
+
 ## [3.0.1](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v3.0.0...v3.0.1) (2025-05-16)
 
 ### Bug Fixes
