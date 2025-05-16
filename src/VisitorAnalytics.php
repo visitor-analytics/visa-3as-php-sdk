@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Visa;
 
-use Respect\Validation\Exceptions\NestedValidationException;
-use Respect\Validation\Validator;
-use Visa\Customers\IntpcApi;
-use Visa\Customers\IntpcsApi;
+use Visa\Intpcs\IntpcApi;
+use Visa\Intpcs\IntpcsApi;
 use Visa\Packages\PackageApi;
 use Visa\Packages\PackagesApi;
 use Visa\Utils\AuthUtils;
@@ -36,8 +34,6 @@ class VisitorAnalytics
      */
     public function __construct(array $params)
     {
-        $this->validateSetup($params);
-
         $this->auth = new AuthUtils($params['intp']);
 
         $this->httpClient = new VisaHttpClient([
@@ -54,25 +50,6 @@ class VisitorAnalytics
         $this->websites = new WebsitesApi($this->httpClient);
         $this->websiteSubscription = new WebsiteSubscriptionsApi($this->httpClient);
         $this->intpcSubscription = new IntpcSubscriptionsApi($this->httpClient);
-    }
-
-    private function validateSetup(array $params): void
-    {
-        $sdkSetupValidationSchema = Validator::arrayType()
-            ->key('intp', Validator::arrayType()
-                ->key('id', Validator::stringType()->uuid(4))
-                ->key('privateKey', Validator::stringType()))
-            ->key('env', Validator::oneOf(
-                Validator::equals('dev'),
-                Validator::equals('stage'),
-                Validator::equals('production'),
-            ));
-        
-        try {
-            $sdkSetupValidationSchema->assert($params);
-        } catch (NestedValidationException $exception) {
-            throw new \Exception(json_encode($exception->getMessages()));
-        }
     }
 
     public function package($id): PackageApi

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Visa\Customers;
+namespace Visa\Intpcs;
 
 use Laminas\Hydrator\ClassMethodsHydrator;
 use Visa\HydratorInterface;

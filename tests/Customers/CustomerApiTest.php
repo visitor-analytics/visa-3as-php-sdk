@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Customers;
+namespace Intpcs;
 
 use PHPUnit\Framework\TestCase;
 use Visa\Customers\CustomerApi;
