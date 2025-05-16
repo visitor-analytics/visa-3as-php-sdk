@@ -9,12 +9,12 @@ use Visa\VisaHttpClient;
 class IntpcsApi
 {
     private VisaHttpClient $httpClient;
-    private CustomerHydrator $hydrator;
+    private IntpcHydrator $hydrator;
 
     public function __construct(VisaHttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
-        $this->hydrator = new CustomerHydrator();
+        $this->hydrator = new IntpcHydrator();
     }
 
     public function create(array $customer): Intpc

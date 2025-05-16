@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Intpcs;
 
 use PHPUnit\Framework\TestCase;
-use Visa\Customers\CustomerApi;
+use Visa\Intpcs\IntpcApi;
 use Visa\Response;
 use Visa\Utils\AuthUtils;
 use Visa\Utils\IFrameUtils;
@@ -35,10 +35,10 @@ class CustomerApiTest extends TestCase
         $httpClient->method('get')
             ->willReturn($response);
 
-        $customerApi = new CustomerApi($httpClient, new IFrameUtils(new AuthUtils($intp), 'dev'));
+        $customerApi = new IntpcApi($httpClient, new IFrameUtils(new AuthUtils($intp), 'dev'));
 
         $this->assertIsArray(
-            $customerApi->setIntpCustomerId('f653a5c5-842e-4f8f-a25d-e86c1122a341')
+            $customerApi->setIntpcId('f653a5c5-842e-4f8f-a25d-e86c1122a341')
             ->listWebsites()
         );
     }

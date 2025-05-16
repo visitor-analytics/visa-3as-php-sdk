@@ -7,7 +7,7 @@ namespace Visa\Intpcs;
 use Laminas\Hydrator\ClassMethodsHydrator;
 use Visa\HydratorInterface;
 
-class CustomerHydrator implements HydratorInterface
+class IntpcHydrator implements HydratorInterface
 {
     private ClassMethodsHydrator $hydrator;
 
