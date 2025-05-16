@@ -12,8 +12,8 @@ use Visa\Utils\AuthUtils;
 use Visa\Utils\IFrameUtils;
 use Visa\Websites\WebsiteApi;
 use Visa\Websites\WebsitesApi;
-use Visa\Subscriptions\IntpcSubscriptionsApi;
-use Visa\Subscriptions\WebsiteSubscriptionsApi;
+use Visa\Subscriptions\IntpcSubscriptionApi;
+use Visa\Subscriptions\WebsiteSubscriptionApi;
 
 class VisitorAnalytics
 {
@@ -21,8 +21,8 @@ class VisitorAnalytics
     public PackagesApi $packages;
     public WebsitesApi $websites;
     public IntpcsApi $intpcs;
-    public WebsiteSubscriptionsApi $websiteSubscription;
-    public IntpcSubscriptionsApi $intpcSubscription;
+    public WebsiteSubscriptionApi $websiteSubscription;
+    public IntpcSubscriptionApi $intpcSubscription;
     
     private PackageApi $package;
     private WebsiteApi $website;
@@ -48,8 +48,8 @@ class VisitorAnalytics
         $this->intpcs = new IntpcsApi($this->httpClient);
         $this->website = new WebsiteApi($this->httpClient);
         $this->websites = new WebsitesApi($this->httpClient);
-        $this->websiteSubscription = new WebsiteSubscriptionsApi($this->httpClient);
-        $this->intpcSubscription = new IntpcSubscriptionsApi($this->httpClient);
+        $this->websiteSubscription = new WebsiteSubscriptionApi($this->httpClient);
+        $this->intpcSubscription = new IntpcSubscriptionApi($this->httpClient);
     }
 
     public function package($id): PackageApi

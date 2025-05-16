@@ -3,8 +3,6 @@
 namespace Intpcs;
 
 use PHPUnit\Framework\TestCase;
-use Visa\Customers\Customer;
-use Visa\Customers\CustomersApi;
 use Visa\Intpcs\Intpc;
 use Visa\Intpcs\IntpcsApi;
 use Visa\Response;
