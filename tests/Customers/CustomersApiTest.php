@@ -1,10 +1,12 @@
 <?php
 
-namespace Customers;
+namespace Intpcs;
 
 use PHPUnit\Framework\TestCase;
 use Visa\Customers\Customer;
 use Visa\Customers\CustomersApi;
+use Visa\Intpcs\Intpc;
+use Visa\Intpcs\IntpcsApi;
 use Visa\Response;
 use Visa\VisaHttpClient;
 
@@ -25,10 +27,10 @@ class CustomersApiTest extends TestCase
         $httpClient->method('get')
             ->willReturn($response);
 
-        $customersApi = new CustomersApi($httpClient);
+        $customersApi = new IntpcsApi($httpClient);
 
         $this->assertIsArray($customersApi->list());
-        $this->assertInstanceOf(Customer::class, $customersApi->list()['items'][0]);
+        $this->assertInstanceOf(Intpc::class, $customersApi->list()['items'][0]);
     }
 
     public function testGetByIdAction()
@@ -44,8 +46,8 @@ class CustomersApiTest extends TestCase
         $httpClient->method('get')
             ->willReturn($response);
 
-        $customersApi = new CustomersApi($httpClient);
+        $customersApi = new IntpcsApi($httpClient);
 
-        $this->assertInstanceOf(Customer::class, $customersApi->getByIntpCustomerId('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
+        $this->assertInstanceOf(Intpc::class, $customersApi->getByIntpCustomerId('64729b42-f50c-44f9-9edb-fdf13cc692e4'));
     }
 }
