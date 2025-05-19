@@ -36,10 +36,8 @@ class WebsitesApi
         return $this->websiteHydrator->hydrateObject($response->getPayload());
     }
 
-    public function create(array $website): Website
-    {
-        $response = $this->httpClient->post('/v3/3as/websites', $website);
-
-        return $this->websiteHydrator->hydrateObject($response->getPayload());
+    public function create(array $website): void
+    {   
+        $this->httpClient->post('/v3/3as/websites', $website);
     }
 }
