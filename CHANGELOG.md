@@ -4,6 +4,18 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [3.0.4](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v3.0.3...v3.0.4) (2025-05-19)
+
+### Bug Fixes
+
+
+##### VISA-12767
+
+* Remove object hydration for website creation response ([f347ef](https://github.com/visitor-analytics/visa-3as-php-sdk/commit/f347ef173493a1a492add505b8b019d11cca4e32))
+
+
+---
+
 ## [3.0.3](https://github.com/visitor-analytics/visa-3as-php-sdk/compare/v3.0.2...v3.0.3) (2025-05-16)
 
 ### Bug Fixes
